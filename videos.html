@@ -1,55 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Videos</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .video-section {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .video-title {
+      cursor: pointer;
+      background-color: #00509e;
+      color: white;
+      padding: 0.8rem 1rem;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .video-title:hover {
+      background-color: #003f7f;
+    }
+
+    .video-container {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      padding: 0 0;
+    }
+
+    .video-container.open {
+      padding: 1rem 0;
+      max-height: 1000px; /* high enough to fit iframe */
+    }
+
+    iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      border: none;
+    }
+
+    /* Close All button styles */
+    #close-all-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    #close-all-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Gplus Elevator - Videos</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="fabrication.html">Fabrication</a></li>
-            <li><a href="quotation.html">Quotation</a></li>
-            <li><a href="https://gpluselevator.github.io/calculator">Price Calc</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section>
-            <h2>G+2 Classic Swing Door ACP Enclosure MS Cabin</h2>
-            <iframe src="https://www.youtube.com/embed/xVwrGdjC_7k" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>GPlus Elevator #autodoor without a shaft</h2>
-            <iframe src="https://www.youtube.com/embed/YVn49uU_I2s" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>GPlus Elevator 3×3 compact budget friendly Elevator</h2>
-            <iframe src="https://www.youtube.com/embed/4dXRYyQlvKY" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>Glass Enclosure Lift - G+2 - Ultra - 3×3 - SS Swing Door</h2>
-            <iframe src="https://www.youtube.com/embed/vYvDCgiDqk4" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>Classic Airis Model G+2 3×3 Inside Home</h2>
-            <iframe src="https://www.youtube.com/embed/yM63jONCIlg" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>SS Glass Enclosure - G+2 - 3×3 ft - Indoor - SS Swing Door</h2>
-            <iframe src="https://www.youtube.com/embed/GKBboBFbTtc" allowfullscreen></iframe>
-        </section>
-        <section>
-            <h2>#3×3 ft, G+1, SS cabin, Ultra, SS Swing door</h2>
-            <iframe src="https://www.youtube.com/embed/w9e10vKsC-w" allowfullscreen></iframe>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Gplus Elevator. All Rights Reserved.</p>
-    </footer>
+  <header>
+    <h1>Gplus Elevator - Videos</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="fabrication.html">Fabrication</a></li>
+      <li><a href="quotation.html">Quotation</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="video-section">
+      <button class="video-title">G+2 Classic Swing Door ACP Enclosure MS Cabin</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/xVwrGdjC_7k" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">GPlus Elevator #autodoor without a shaft</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/YVn49uU_I2s" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">GPlus Elevator 3×3 compact budget friendly Elevator</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/4dXRYyQlvKY" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">Glass Enclosure Lift - G+2 - Ultra - 3×3 - SS Swing Door</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/vYvDCgiDqk4" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">Classic Airis Model G+2 3×3 Inside Home</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/yM63jONCIlg" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">SS Glass Enclosure - G+2 - 3×3 ft - Indoor - SS Swing Door</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/GKBboBFbTtc" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <button class="video-title">#3×3 ft, G+1, SS cabin, Ultra, SS Swing door</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/w9e10vKsC-w" allowfullscreen></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gplus Elevator. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Close All button -->
+  <button id="close-all-btn" aria-label="Close all videos">Close All</button>
+
+  <script>
+    const videoTitles = document.querySelectorAll('.video-title');
+    const closeAllBtn = document.getElementById('close-all-btn');
+
+    function updateCloseAllButtonVisibility() {
+      // Show button if any video container is open
+      const anyOpen = Array.from(document.querySelectorAll('.video-container')).some(container => container.classList.contains('open'));
+      if (anyOpen) {
+        closeAllBtn.classList.add('show');
+      } else {
+        closeAllBtn.classList.remove('show');
+      }
+    }
+
+    videoTitles.forEach(button => {
+      button.addEventListener('click', () => {
+        const container = button.nextElementSibling;
+        container.classList.toggle('open');
+        updateCloseAllButtonVisibility();
+      });
+    });
+
+    closeAllBtn.addEventListener('click', () => {
+      document.querySelectorAll('.video-container.open').forEach(container => {
+        container.classList.remove('open');
+      });
+      updateCloseAllButtonVisibility();
+    });
+  </script>
 </body>
 </html>
