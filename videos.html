@@ -7,72 +7,73 @@
   <link rel="stylesheet" href="styles.css"/>
   <style>
     .video-section {
-      background: white;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+  background: #F9FBFC; /* very light gray */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-    .video-title {
-      cursor: pointer;
-      background-color: #00509e;
-      color: white;
-      padding: 0.8rem 1rem;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-size: 1.1rem;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
+.video-title {
+  cursor: pointer;
+  background-color: #3A6EA5; /* muted blue */
+  color: white;
+  padding: 0.8rem 1rem;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
 
-    .video-title:hover {
-      background-color: #003f7f;
-    }
+.video-title:hover {
+  background-color: #2A4D69; /* darker muted blue for hover */
+}
 
-    .video-container {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.5s ease, padding 0.3s ease;
-      padding: 0 0;
-    }
+.video-container {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 0;
+}
 
-    .video-container.open {
-      padding: 1rem 0;
-      max-height: 1000px; /* high enough to fit iframe */
-    }
+.video-container.open {
+  padding: 1rem 0;
+  max-height: 1000px; /* high enough to fit iframe */
+}
 
-    iframe {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 9 / 16;
-      border: none;
-    }
+iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border: none;
+}
 
-    /* Close All button styles */
-    #close-all-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #d9534f;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.25rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 1000;
-    }
+/* Close All button styles */
+#close-all-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #D25A07; /* updated to professional warning orange */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
 
-    #close-all-btn.show {
-      opacity: 1;
-      visibility: visible;
-    }
+#close-all-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
   </style>
 </head>
 <body>
