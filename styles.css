@@ -7,14 +7,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #F0F4F8; /* subtle light gray with blue tint */
+    color: #262626; /* cool charcoal text */
     line-height: 1.6;
 }
 
 /* Header Styling */
 header {
-    background-color: #003366;
+    background-color: #2C3E50; /* classic dark blue-gray */
     color: white;
     padding: 1rem 2rem;
     text-align: center;
@@ -26,7 +26,7 @@ header h1 {
 
 /* Navigation Styling */
 nav {
-    background-color: #00509e;
+    background-color: #3A6EA5; /* muted blue */
     padding: 0.5rem;
 }
 
@@ -45,13 +45,13 @@ nav ul li a {
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    background-color: #0066cc;
+    background-color: #247881; /* sophisticated teal */
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #004a99;
+    background-color: #1B4F58; /* darker teal for hover */
 }
 
 /* Main Content Styling */
@@ -64,7 +64,7 @@ main {
 
 /* Section for each video */
 section {
-    background: white;
+    background: #F9FBFC; /* very light gray */
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -80,7 +80,7 @@ iframe {
 
 /* Footer Styling */
 footer {
-    background-color: #003366;
+    background-color: #2C3E50; /* same as header */
     color: white;
     text-align: center;
     padding: 1rem;
