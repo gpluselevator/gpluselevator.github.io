@@ -169,11 +169,18 @@
     });
 
     closeAllBtn.addEventListener('click', () => {
-      document.querySelectorAll('.video-container.open').forEach(container => {
-        container.classList.remove('open');
-      });
-      updateCloseAllButtonVisibility();
-    });
+  document.querySelectorAll('.video-container.open').forEach(container => {
+    container.classList.remove('open');
+    // Stop the video by resetting the iframe src
+    const iframe = container.querySelector('iframe');
+    if (iframe) {
+      const src = iframe.src;
+      iframe.src = '';  // Clear src to stop video
+      iframe.src = src; // Reset src to original to allow replay later
+    }
+  });
+  updateCloseAllButtonVisibility();
+});
   </script>
 </body>
 </html>
