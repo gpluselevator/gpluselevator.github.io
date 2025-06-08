@@ -5,10 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabrication</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+    main section {
+      margin-bottom: 3rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    main section h2 {
+      font-size: 1.75rem;
+      color: #1E2A47; /* header bg color */
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    main section p.description {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    /* Button styling consistent with nav hover */
+    .view-pdf-btn {
+      background-color: #3A6EA5;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .view-pdf-btn:hover,
+    .view-pdf-btn:focus {
+      background-color: #1E2A47;
+      transform: translateY(-3px);
+      outline: none;
+    }
+
+    /* Modal backdrop */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(30, 42, 71, 0.75); /* semi-transparent dark blue */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+      overflow: auto;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    /* Modal content */
+    .modal-content {
+      position: relative;
+      background-color: white;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      box-shadow: 0 8px 24px rgba(58, 110, 165, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Modal header */
+    .modal-header {
+      background-color: #1E2A47;
+      color: white;
+      padding: 1rem 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Close button */
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+
+    .modal-close-btn:hover,
+    .modal-close-btn:focus {
+      color: #3A6EA5;
+      outline: none;
+    }
+
+    /* Modal body with PDF embed */
+    .modal-body {
+  flex: 1;
+  overflow: auto;
+  background-color: #f9f9f9;
+  min-height: 300px;
+  padding: 0;
+}
+
+.modal-body iframe {
+  width: 100%;
+  height: 80vh; /* desktop height */
+  border: none;
+  display: block;
+  min-height: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .modal-body iframe {
+    height: 70vh; /* increased height on mobile */
+    min-height: 300px;
+  }
+}
+
+  </style>
+
+
 </head>
 <body>
     <header>
-        <h1>Gplus Elevator - Fabrication</h1>
+        <h1>GPlus Elevator - Fabrication</h1>
     </header>
     <nav>
         <ul>
@@ -20,18 +164,90 @@
         </ul>
     </nav>
     <main>
-        <section>
-            <h2>PDF 1: [Unique Heading]</h2>
-            <embed src="fabrication_data/sample.pdf" width="100%" height="600px" type="application/pdf">
-        </section>
-        <section>
-            <h2>PDF 2: [Unique Heading]</h2>
-            <embed src="fabrication_data/dummy.pdf" width="100%" height="600px" type="application/pdf">
-        </section>
-        <!-- Add more PDF sections as needed -->
-    </main>
+    <section>
+      <h2>PDF 1: [Unique Heading]</h2>
+      <p class="description">This is a short description summarizing the content of PDF 1. It provides an overview to help users decide if they want to view the full document.</p>
+      <button class="view-pdf-btn" data-pdf-src="sample_pdf.pdf" data-pdf-title="PDF 1: [Unique Heading]">View Full PDF</button>
+    </section>
+    <section>
+      <h2>PDF 2: [Unique Heading]</h2>
+      <p class="description">This is a short description summarizing the content of PDF 2. It provides an overview to help users decide if they want to view the full document.</p>
+      <button class="view-pdf-btn" data-pdf-src="sample_pdf.pdf" data-pdf-title="PDF 2: [Unique Heading]">View Full PDF</button>
+    </section>
+    <!-- Add more sections as needed -->
+  </main>
+
+  <!-- Modal structure -->
+    <div class="modal-backdrop" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="modal-content">
+        <div class="modal-header">
+        <span id="modalTitle">PDF Title</span>
+        <button class="modal-close-btn" aria-label="Close PDF modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        <iframe src="" id="modalPdfIframe" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    </div>
+
+
     <footer>
-        <p>&copy; 2025 Gplus Elevator. All Rights Reserved.</p>
+        <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
     </footer>
+
+    <script>
+    // Get modal elements
+    const modal = document.getElementById('pdfModal');
+    const modalTitle = modal.querySelector('#modalTitle');
+    // const modalEmbed = modal.querySelector('#modalPdfEmbed');
+    const modalIframe = modal.querySelector('#modalPdfIframe');
+    const closeBtn = modal.querySelector('.modal-close-btn');
+
+    // Open modal function
+    function openModal(pdfSrc, title) {
+  modalIframe.src = ''; // reset src to force reload
+  setTimeout(() => {
+    modalIframe.src = pdfSrc;
+  }, 10);
+  modalTitle.textContent = title;
+  modal.classList.add('active');
+  modal.focus();
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+}
+
+
+    // Close modal function
+   function closeModal() {
+  modal.classList.remove('active');
+  modalIframe.src = '';
+  document.body.style.overflow = ''; // restore scroll
+}
+
+    // Event listeners for buttons
+    document.querySelectorAll('.view-pdf-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const pdfSrc = button.getAttribute('data-pdf-src');
+        const title = button.getAttribute('data-pdf-title');
+        openModal(pdfSrc, title);
+      });
+    });
+
+    // Close modal on close button click
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal on backdrop click (outside modal content)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close modal on Escape key press
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>
