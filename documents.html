@@ -6,27 +6,50 @@
   <title>Documents</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem 3rem;
+      max-width: 900px;
+      margin: 2rem auto 3rem;
+      padding: 0 1rem;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     main section {
-      margin-bottom: 3rem;
+      background: #F9FBFC;
+      padding: 1.5rem 1.75rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(58, 110, 165, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     main section h2 {
       font-size: 1.75rem;
-      color: #1e2a47; /* matching header bg color for accent */
+      color: #1E2A47; /* matching header bg color for accent */
       margin-bottom: 1rem;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
-    /* Responsive embed container */
     .pdf-embed-container {
       position: relative;
       width: 100%;
       padding-bottom: 75%; /* 4:3 aspect ratio */
       height: 0;
       overflow: hidden;
-      border: 1px solid #ccc;
+      border: 1px solid #3A6EA5; /* nav hover color for subtle accent */
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(58, 110, 165, 0.2);
+      margin-bottom: 1rem;
+      background: white;
     }
 
     .pdf-embed-container iframe {
@@ -36,10 +59,31 @@
       width: 100%;
       height: 100%;
       border: none;
+      border-radius: 8px;
+      background: white;
+    }
+
+    p a {
+      color: #3A6EA5;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    p a:hover,
+    p a:focus {
+      color: #1E2A47;
+      text-decoration: underline;
+      outline: none;
     }
 
     /* Smaller screens: fixed height for iframe */
     @media (max-width: 768px) {
+      main {
+        margin: 1rem auto 2rem;
+        padding: 0 1rem;
+      }
+
       .pdf-embed-container {
         padding-bottom: 0;
         height: 600px; /* fixed height for mobile */
@@ -55,29 +99,68 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="videos.html">Videos</a></li>
-      <li><a href="pictures.html">Pictures</a></li>
+      <li><a href="pictures.html">Gallery</a></li>
+      <li><a href="documents.html">Documents</a></li>
       <li><a href="fabrication.html">Fabrication</a></li>
-      <li><a href="https://gpluselevator.github.io/calculator">Price Calculator</a></li>
+      <!-- <li><a href="calculator.html">Price Calculator</a></li> -->
     </ul>
   </nav>
-  <main>
-    <section>
-      <h2>Product Catalog</h2>
-      <div class="pdf-embed-container">
-        <iframe src="fabrication_data/GPlus_Elevator_Product_Catalog.pdf"></iframe>
-      </div>
-      <p><a href="fabrication_data/GPlus_Elevator_Product_Catalog.pdf" target="_blank" rel="noopener">Open PDF in new tab</a></p>
-    </section>
-    <section>
-      <h2>Product Design</h2>
-      <div class="pdf-embed-container">
-        <iframe src="fabrication_data/GPlus_Elevator_Product_Design_Document.pdf"></iframe>
-      </div>
-      <p><a href="fabrication_data/GPlus_Elevator_Product_Design_Document.pdf" target="_blank" rel="noopener">Open PDF in new tab</a></p>
-    </section>    
+  <main id="documents-container">
+    <!-- Sections will be dynamically inserted here -->
   </main>
   <footer>
     <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
-  </footer>
+    <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
+        Contact us: <a href="tel:+919876543210" style="color: #ccc; text-decoration: none;">+91-9876543210</a>
+    </p>
+</footer>
+
+  <script>
+    // Array of document objects with title and PDF src
+    const documents = [
+      {
+        title: "Product Catalog",
+        src: "data/fabrication/GPlus_Elevator_Product_Catalog.pdf"
+      },
+      {
+        title: "Product Design",
+        src: "data/fabrication_data/GPlus_Elevator_Product_Design_Document.pdf"
+      }
+      // Add more documents here as needed
+    ];
+
+    const container = document.getElementById('documents-container');
+
+    documents.forEach(doc => {
+      const section = document.createElement('section');
+
+      const h2 = document.createElement('h2');
+      h2.textContent = doc.title;
+
+      const embedDiv = document.createElement('div');
+      embedDiv.className = 'pdf-embed-container';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = doc.src;
+      iframe.title = `${doc.title} PDF`;
+
+      embedDiv.appendChild(iframe);
+
+      const p = document.createElement('p');
+      const link = document.createElement('a');
+      link.href = doc.src;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = 'Open PDF in new tab';
+
+      p.appendChild(link);
+
+      section.appendChild(h2);
+      section.appendChild(embedDiv);
+      section.appendChild(p);
+
+      container.appendChild(section);
+    });
+  </script>
 </body>
 </html>

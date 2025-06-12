@@ -6,74 +6,91 @@
   <title>Videos</title>
   <link rel="stylesheet" href="styles.css"/>
   <style>
-.video-section {
-  background: #F9FBFC;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    main {
+      column-count: 1;
+      column-gap: 1rem;
+      padding: 1rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
 
-.video-title {
-  cursor: pointer;
-  background-color: #6397cf;
-  color: white;
-  padding: 0.8rem 1rem;
-  border: none;
-  width: 100%;
-  text-align: left;
-  font-size: 1.1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
+    @media (min-width: 768px) {
+      main {
+        column-count: 2;
+      }
+    }
 
-.video-title:hover {
-  background-color: #2A4D69;
-}
+    .video-section {
+      background: #F9FBFC;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      width: 100%;
+      break-inside: avoid;
+    }
 
-.video-container {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.5s ease, padding 0.3s ease;
-  padding: 0 0;
-}
+    .video-title {
+      cursor: pointer;
+      background-color: #1E2A47;
+      color: white;
+      padding: 0.8rem 1rem;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
 
-.video-container.open {
-  padding: 1rem 0;
-  max-height: 1000px; /* high enough to fit iframe */
-}
+    .video-title:hover {
+      background-color: #3A6EA5;
+    }
 
-iframe {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 9 / 16;
-  border: none;
-}
+    .video-container {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      padding: 0 0;
+    }
 
-/* Close All button styles */
-#close-all-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #D25A07;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
-}
+    .video-container.open {
+      padding: 1rem 0;
+      max-height: 1000px;
+    }
 
-#close-all-btn.show {
-  opacity: 1;
-  visibility: visible;
-}
+    iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      border: none;
+    }
 
+    #close-all-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #D25A07;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    #close-all-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body>
@@ -83,77 +100,100 @@ iframe {
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="pictures.html">Pictures</a></li>
-      <li><a href="fabrication.html">Fabrication</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="pictures.html">Gallery</a></li>
       <li><a href="documents.html">Documents</a></li>
-      <li><a href="https://gpluselevator.github.io/calculator">Price Calculator</a></li>
+      <li><a href="fabrication.html">Fabrication</a></li>
+      <!-- <li><a href="calculator.html">Price Calculator</a></li> -->
     </ul>
   </nav>
 
-  <main>
-    <section class="video-section">
-      <button class="video-title">G+2 Classic Swing Door ACP Enclosure MS Cabin</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/xVwrGdjC_7k" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">GPlus Elevator #autodoor without a shaft</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/YVn49uU_I2s" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">GPlus Elevator 3×3 compact budget friendly Elevator</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/4dXRYyQlvKY" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">Glass Enclosure Lift - G+2 - Ultra - 3×3 - SS Swing Door</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/vYvDCgiDqk4" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">Classic Airis Model G+2 3×3 Inside Home</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/yM63jONCIlg" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">SS Glass Enclosure - G+2 - 3×3 ft - Indoor - SS Swing Door</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/GKBboBFbTtc" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section class="video-section">
-      <button class="video-title">#3×3 ft, G+1, SS cabin, Ultra, SS Swing door</button>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/w9e10vKsC-w" allowfullscreen></iframe>
-      </div>
-    </section>
+  <main id="videos-container">
+    <!-- Video sections will be dynamically inserted here -->
   </main>
 
   <footer>
-    <p>&copy; 2025 Gplus Elevator. All Rights Reserved.</p>
-  </footer>
+    <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
+    <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
+        Contact us: <a href="tel:+919876543210" style="color: #ccc; text-decoration: none;">+91-9876543210</a>
+    </p>
+</footer>
 
-  <!-- Close All button -->
   <button id="close-all-btn" aria-label="Close all videos">Close All</button>
 
   <script>
-    const videoTitles = document.querySelectorAll('.video-title');
+    // Array of video objects with title and embed URL
+    const videos = [
+      {
+        title: "G+2 Classic Swing Door ACP Enclosure MS Cabin",
+        url: "https://www.youtube.com/embed/xVwrGdjC_7k"
+      },
+      {
+        title: "GPlus Elevator #autodoor without a shaft",
+        url: "https://www.youtube.com/embed/YVn49uU_I2s"
+      },
+      {
+        title: "GPlus Elevator 3×3 compact budget friendly Elevator",
+        url: "https://www.youtube.com/embed/4dXRYyQlvKY"
+      },
+      {
+        title: "Glass Enclosure Lift - G+2 - Ultra - 3×3 - SS Swing Door",
+        url: "https://www.youtube.com/embed/vYvDCgiDqk4"
+      },
+      {
+        title: "Classic Airis Model G+2 3×3 Inside Home",
+        url: "https://www.youtube.com/embed/yM63jONCIlg"
+      },
+      {
+        title: "SS Glass Enclosure - G+2 - 3×3 ft - Indoor - SS Swing Door",
+        url: "https://www.youtube.com/embed/GKBboBFbTtc"
+      },
+      {
+        title: "#3×3 ft, G+1, SS cabin, Ultra, SS Swing door",
+        url: "https://www.youtube.com/embed/w9e10vKsC-w"
+      }
+    ];
+
+    const container = document.getElementById('videos-container');
+
+    // Function to create a video section element
+    function createVideoSection(video) {
+      const section = document.createElement('section');
+      section.className = 'video-section';
+
+      const button = document.createElement('button');
+      button.className = 'video-title';
+      button.textContent = video.title;
+
+      const videoDiv = document.createElement('div');
+      videoDiv.className = 'video-container';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = video.url;
+      iframe.allowFullscreen = true;
+
+      videoDiv.appendChild(iframe);
+      section.appendChild(button);
+      section.appendChild(videoDiv);
+
+      // Add click event to toggle video container
+      button.addEventListener('click', () => {
+        videoDiv.classList.toggle('open');
+        updateCloseAllButtonVisibility();
+      });
+
+      return section;
+    }
+
+    // Render all videos
+    videos.forEach(video => {
+      const videoSection = createVideoSection(video);
+      container.appendChild(videoSection);
+    });
+
     const closeAllBtn = document.getElementById('close-all-btn');
 
     function updateCloseAllButtonVisibility() {
-      // Show button if any video container is open
       const anyOpen = Array.from(document.querySelectorAll('.video-container')).some(container => container.classList.contains('open'));
       if (anyOpen) {
         closeAllBtn.classList.add('show');
@@ -162,27 +202,18 @@ iframe {
       }
     }
 
-    videoTitles.forEach(button => {
-      button.addEventListener('click', () => {
-        const container = button.nextElementSibling;
-        container.classList.toggle('open');
-        updateCloseAllButtonVisibility();
-      });
-    });
-
     closeAllBtn.addEventListener('click', () => {
-  document.querySelectorAll('.video-container.open').forEach(container => {
-    container.classList.remove('open');
-    // Stop the video by resetting the iframe src
-    const iframe = container.querySelector('iframe');
-    if (iframe) {
-      const src = iframe.src;
-      iframe.src = '';  // Clear src to stop video
-      iframe.src = src; // Reset src to original to allow replay later
-    }
-  });
-  updateCloseAllButtonVisibility();
-});
+      document.querySelectorAll('.video-container.open').forEach(container => {
+        container.classList.remove('open');
+        const iframe = container.querySelector('iframe');
+        if (iframe) {
+          const src = iframe.src;
+          iframe.src = '';
+          iframe.src = src;
+        }
+      });
+      updateCloseAllButtonVisibility();
+    });
   </script>
 </body>
 </html>

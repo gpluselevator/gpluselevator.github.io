@@ -6,6 +6,31 @@
   <title>Pictures</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem 2rem;
+      padding: 1rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    section {
+      background: #F9FBFC;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
     /* Description styling */
     .slide-description {
       margin: 0.5rem 0 1rem;
@@ -27,7 +52,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease-in-out;
       display: inline-block;
-      margin-bottom: 2rem;
+      margin: 0 auto 0; /* centers the button horizontally */
+      /* Removed align-self: flex-start; */
     }
 
     .view-pictures-btn:hover {
@@ -115,49 +141,35 @@
 
     /* h2 styling remains as clickable */
     h2 {
-      /* cursor: pointer; */
       color: #1E2A47;
-      /* text-decoration: underline; */
+      cursor: pointer;
+      margin-bottom: 0.3rem;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Gplus Elevator - Pictures</h1>
+    <h1>Gplus Elevator - Gallery</h1>
   </header>
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="videos.html">Videos</a></li>
-      <li><a href="fabrication.html">Fabrication</a></li>
+      <li><a href="pictures.html">Gallery</a></li>
       <li><a href="documents.html">Documents</a></li>
-      <li><a href="https://gpluselevator.github.io/calculator">Price Calculator</a></li>
+      <li><a href="fabrication.html">Fabrication</a></li>
+      <!-- <li><a href="calculator.html">Price Calculator</a></li> -->
     </ul>
   </nav>
-  <main>
-    <section>
-      <h2 data-src="https://docs.google.com/presentation/d/e/1aOBTgK3kBg5soT6q1WIDF6DFwnDOt23CBHBIm7MFDzE/embed?start=true&loop=true&delayms=3000">
-        Slide 1: [Unique Heading]
-      </h2>
-      <p class="slide-description">This is a short description for Slide 1.</p>
-      <button class="view-pictures-btn" data-src="https://docs.google.com/presentation/d/e/1aOBTgK3kBg5soT6q1WIDF6DFwnDOt23CBHBIm7MFDzE/embed?start=true&loop=true&delayms=3000">
-        View pictures
-      </button>
-    </section>
-    <section>
-      <h2 data-src="https://docs.google.com/presentation/d/e/your-presentation-id/embed?start=true&loop=true&delayms=3000">
-        Slide 2: [Unique Heading]
-      </h2>
-      <p class="slide-description">This is a short description for Slide 2.</p>
-      <button class="view-pictures-btn" data-src="https://docs.google.com/presentation/d/e/your-presentation-id/embed?start=true&loop=true&delayms=3000">
-        View pictures
-      </button>
-    </section>
-    <!-- Add more sections as needed -->
+  <main id="slides-container">
+    <!-- Slides will be dynamically inserted here -->
   </main>
   <footer>
-    <p>&copy; 2025 Gplus Elevator. All Rights Reserved.</p>
-  </footer>
+    <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
+    <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
+        Contact us: <a href="tel:+919876543210" style="color: #ccc; text-decoration: none;">+91-9876543210</a>
+    </p>
+</footer>
 
   <!-- Modal popup -->
   <div id="modal">
@@ -168,11 +180,54 @@
   </div>
 
   <script>
+    const slides = [
+      {
+        heading: "Slide 1: [Unique Heading]",
+        description: "This is a short description for Slide 1.",
+        src: "https://docs.google.com/presentation/d/e/2PACX-1vSJd8Pq3-JSoCgDbhhev4Ue_6Ym6GXAStkGBGXKCEic_k-XSiEuC68i1jePp59GvUyZ_tAPIWs3f8wG/pubembed?start=false&loop=false&delayms=3000"
+      },
+      {
+        heading: "Slide 2: [Unique Heading]",
+        description: "This is a short description for Slide 2.",
+        src: "https://docs.google.com/presentation/d/e/2PACX-1vSJd8Pq3-JSoCgDbhhev4Ue_6Ym6GXAStkGBGXKCEic_k-XSiEuC68i1jePp59GvUyZ_tAPIWs3f8wG/pubembed?start=false&loop=false&delayms=3000"
+      },
+      {
+        heading: "Slide 3: [Unique Heading]",
+        description: "This is a short description for Slide 2.",
+        src: "https://docs.google.com/presentation/d/e/2PACX-1vSJd8Pq3-JSoCgDbhhev4Ue_6Ym6GXAStkGBGXKCEic_k-XSiEuC68i1jePp59GvUyZ_tAPIWs3f8wG/pubembed?start=false&loop=false&delayms=3000"
+      }
+      // Add more slides here as needed
+    ];
+
+    const container = document.getElementById("slides-container");
+
+    slides.forEach(slide => {
+      const section = document.createElement("section");
+
+      const h2 = document.createElement("h2");
+      h2.textContent = slide.heading;
+      h2.setAttribute("data-src", slide.src);
+
+      const p = document.createElement("p");
+      p.className = "slide-description";
+      p.textContent = slide.description;
+
+      const button = document.createElement("button");
+      button.className = "view-pictures-btn";
+      button.textContent = "View pictures";
+      button.setAttribute("data-src", slide.src);
+
+      section.appendChild(h2);
+      section.appendChild(p);
+      section.appendChild(button);
+
+      container.appendChild(section);
+    });
+
     const modal = document.getElementById("modal");
     const modalIframe = modal.querySelector("iframe");
     const closeBtn = document.getElementById("closeBtn");
 
-    // Open modal on 'View pictures' button click or heading click
     function openModalWithSrc(src) {
       if (src) {
         modalIframe.src = src;
@@ -181,20 +236,22 @@
     }
 
     // Attach event listeners to headings and buttons
-    document.querySelectorAll("main section h2, .view-pictures-btn").forEach((el) => {
-      el.addEventListener("click", () => {
-        const src = el.getAttribute("data-src");
-        openModalWithSrc(src);
+    function attachListeners() {
+      document.querySelectorAll("main section h2, .view-pictures-btn").forEach((el) => {
+        el.addEventListener("click", () => {
+          const src = el.getAttribute("data-src");
+          openModalWithSrc(src);
+        });
       });
-    });
+    }
 
-    // Close modal on close button click
+    attachListeners();
+
     closeBtn.addEventListener("click", () => {
       modal.classList.remove("show");
       modalIframe.src = ""; // Stop the slide show
     });
 
-    // Close modal if clicking outside modal content
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         modal.classList.remove("show");
