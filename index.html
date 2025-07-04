@@ -337,10 +337,14 @@
         <label for="additional">Extra Accessories:</label>
         <select id="additional">
           <option value="none">None</option>
-          <option value="rf_lop">RF (LOP) - ₹10,000</option>
-          <option value="rf_cop">RF (COP) - ₹15,000</option>
-          <option value="finger_lop">Fingerprint (LOP) - ₹15,000</option>
-          <option value="finger_cop">Fingerprint (COP) - ₹20,000</option>
+          <option value="rf_lop">Password,RF device (Connect to LOP) - ₹ 10,000</option>
+          <option value="rf_cop">Password, RF device attached to COP - ₹ 15,000</option>
+          <option value="finger_lop">Finger print, Password device (Connect to LOP) - ₹ 15,000</option>
+          <option value="finger_cop">Finger print, Password device attached to COP - ₹ 20,000</option>
+          <option value="touch_screen_lop">Touch Screen LOP - ₹3,000</option>
+          <option value="touch_screen_cop">Touch Screen COP - ₹20,000</option>
+          <option value="touch_screen_with_glass_lop">Touch Screen with Glass LOP- ₹ 5,000</option>
+          <option value="touch_screen_with_glass_cop">Touch Screen with Glass COP- ₹ 30,000</option>
         </select>
       </div>
 
@@ -600,7 +604,7 @@
         ss_half_vision: 25000,
         ss_full_vision: 30000,
       };
-      const swingDoorCost = type === "Manual" ? (doorCostMap[door] || 0) : 0;
+      const swingDoorCost = type === "Manual" ? (doorCostMap[door] || 0) * (floorInput === "G+1" ? 2 : floorInput === "G+2" ? 3 : floorInput === "G+3" ? 4 : 1) : 0;
 
       // Indoor/Outdoor cost
       const outdoorCost = location === "Outdoor" ? 40000 : 0;
@@ -612,9 +616,13 @@
         rf_cop: 15000,
         finger_lop: 15000,
         finger_cop: 20000,
+        touch_screen_lop: 3000,
+        touch_screen_cop: 20000,
+        touch_screen_with_glass_lop: 5000,
+        touch_screen_with_glass_cop: 30000,
+        converter_single_phase_to_3_phase: 20000
       };
-      const additionalCost = accessoryCostMap[additional] || 0;
-
+      const additionalCost = additional.includes("_lop") ? (accessoryCostMap[additional] || 0) * (floorInput === "G+1" ? 2 : floorInput === "G+2" ? 3 : floorInput === "G+3" ? 4 : 1) : (accessoryCostMap[additional] || 0);
       // Discount based on model and floor
       const discounts = {
         Classic: { "G+1": 5000, "G+2": 10000, "G+3": 15000 },
