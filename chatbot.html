@@ -16,7 +16,7 @@
         align-items: center;
         height: 100vh;
     }
-    
+
     /* Chatbot Container */
     .chatbot-container {
         width: 420px; /* Slightly wider */
@@ -27,7 +27,7 @@
         display: flex;
         flex-direction: column;
     }
-    
+
     /* Chatbot Header */
     .chatbot-header {
         background: linear-gradient(to right, #4CAF50, #388E3C); /* Gradient header */
@@ -36,13 +36,13 @@
         text-align: center;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
     }
-    
+
     .logo-section {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    
+
     .logo-circle {
         width: 55px;
         height: 55px;
@@ -54,25 +54,25 @@
         margin-right: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Lifted effect */
     }
-    
+
     .logo-image {
         max-width: 70%;
         max-height: 70%;
     }
-    
+
     .header-text h1 {
         margin: 0;
         font-size: 22px;
         font-weight: 600; /* Semi-bold */
     }
-    
+
     .header-text p {
         margin: 5px 0 0;
         font-size: 14px;
         color: #e0f2f1; /* Softer text color */
         font-style: italic;
     }
-    
+
     /* Chat Messages */
     .chat-messages {
         flex: 1;
@@ -80,13 +80,13 @@
         overflow-y: auto;
         background: #f5f5f5; /* Light gray background */
     }
-    
+
     .message {
         display: flex;
         margin-bottom: 15px;
         align-items: flex-start; /* Align avatars to the top */
     }
-    
+
     .message-avatar {
         width: 35px;
         height: 35px;
@@ -98,18 +98,18 @@
         font-size: 16px;
         color: #fff;
     }
-    
+
     .bot-avatar {
         background: #4CAF50; /* Green bot avatar */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     .user-avatar {
         background: #ddd; /* Light gray user avatar */
         color: #555;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     .message-content {
         max-width: 75%;
         padding: 12px;
@@ -121,17 +121,17 @@
         line-height: 1.4;
         word-break: break-word; /* Prevent long words from breaking layout */
     }
-    
+
     .bot-message .message-content {
         background: #DCF8C6; /* Light green for bot messages */
         color: #2E3D49;
     }
-    
+
     .user-message .message-content {
         background: #E0F7FA; /* Light blue for user messages */
         color: #2E3D49;
     }
-    
+
     /* Typing Indicator */
     .typing-indicator {
         display: flex;
@@ -140,7 +140,7 @@
         gap: 5px;
         padding: 5px 0;
     }
-    
+
     .typing-dot {
         width: 9px;
         height: 9px;
@@ -148,15 +148,15 @@
         border-radius: 50%;
         animation: typing 1.2s infinite ease-in-out;
     }
-    
+
     .typing-dot:nth-child(2) {
         animation-delay: 0.2s;
     }
-    
+
     .typing-dot:nth-child(3) {
         animation-delay: 0.4s;
     }
-    
+
     @keyframes typing {
         0%, 60%, 100% {
             transform: translateY(0);
@@ -165,19 +165,19 @@
             transform: translateY(-9px);
         }
     }
-    
+
     /* Chat Input Container */
     .chat-input-container {
         padding: 20px;
         background: #fff;
         border-top: 1px solid #eee; /* Lighter border */
     }
-    
+
     .input-wrapper {
         display: flex;
         align-items: center;
     }
-    
+
     .input-wrapper input {
         flex: 1;
         padding: 12px;
@@ -187,7 +187,7 @@
         font-size: 15px;
         outline: none; /* Remove focus outline */
     }
-    
+
     .input-wrapper button {
         background: #4CAF50;
         color: #fff;
@@ -202,18 +202,18 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         transition: background-color 0.3s ease;
     }
-    
+
     .input-wrapper button:hover {
         background: #388E3C;
     }
-    
+
     .input-wrapper svg {
         width: 22px;
         height: 22px;
         stroke: #fff;
         stroke-width: 2.5;
     }
-    
+
     /* Quick Questions */
     .quick-questions {
         display: flex;
@@ -222,7 +222,7 @@
         margin-top: 12px;
         justify-content: flex-start;
     }
-    
+
     .quick-btn {
         background: #f0f0f0;
         color: #444;
@@ -233,32 +233,31 @@
         font-size: 13px;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
-    
+
     .quick-btn:hover {
         background: #4CAF50;
         color: #fff;
     }
-    
+
     /* Scrollbar Styling (Webkit Browsers) */
     .chat-messages::-webkit-scrollbar {
         width: 8px;
     }
-    
+
     .chat-messages::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 4px;
     }
-    
+
     .chat-messages::-webkit-scrollbar-thumb {
         background: #ccc;
         border-radius: 4px;
     }
-    
+
     .chat-messages::-webkit-scrollbar-thumb:hover {
         background: #bbb;
     }
-
-</style>
+  </style>
 </head>
 <body>
   <div class="chatbot-container">
@@ -305,8 +304,8 @@
       </div>
     </div>
   </div>
-  </script>
-      class GPlusElevatorChatbot {
+  <script>
+    class GPlusElevatorChatbot {
         constructor() {
             this.faqAnswers = [
                 "Bye, have a great day.",
@@ -351,14 +350,14 @@
                 "There is an additional 1 year of warranty provided after the actual expiry of the warranty.",
               "The company is 3 years old."
             ];
-    
+
             this.chatMessages = document.getElementById('chatMessages');
             this.userInput = document.getElementById('userInput');
             this.sendButton = document.getElementById('sendButton');
-    
+
             this.initializeEventListeners();
         }
-    
+
         initializeEventListeners() {
             this.sendButton.addEventListener('click', () => this.handleSendMessage());
             this.userInput.addEventListener('keypress', (e) => {
@@ -366,7 +365,7 @@
                     this.handleSendMessage();
                 }
             });
-    
+
             document.querySelectorAll('.quick-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const question = e.target.getAttribute('data-question');
@@ -375,11 +374,11 @@
                 });
             });
         }
-    
+
         handleSendMessage() {
             const message = this.userInput.value.trim();
             if (!message) return;
-    
+
             const exitWords = ['exit', 'bye', 'quit', 'stop', 'end', 'close', 'finish', 'goodbye'];
             if (exitWords.includes(message.toLowerCase())) {
                 this.addUserMessage(message);
@@ -387,13 +386,13 @@
                 this.userInput.value = '';
                 return;
             }
-    
+
             this.addUserMessage(message);
             this.userInput.value = '';
             this.sendButton.disabled = true;
-    
+
             this.showTypingIndicator();
-    
+
             setTimeout(() => {
                 this.hideTypingIndicator();
                 const response = this.findBestAnswer(message);
@@ -401,7 +400,7 @@
                 this.sendButton.disabled = false;
             }, 1000 + Math.random() * 1000);
         }
-    
+
         addUserMessage(message) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message user-message';
@@ -414,7 +413,7 @@
             this.chatMessages.appendChild(messageDiv);
             this.scrollToBottom();
         }
-    
+
         addBotMessage(message) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message bot-message';
@@ -427,7 +426,7 @@
             this.chatMessages.appendChild(messageDiv);
             this.scrollToBottom();
         }
-    
+
         showTypingIndicator() {
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message bot-message';
@@ -437,93 +436,94 @@
                 <div class="typing-indicator">
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
                 </div>
             `;
             this.chatMessages.appendChild(typingDiv);
             this.scrollToBottom();
         }
-    
+
         hideTypingIndicator() {
             const typingIndicator = document.getElementById('typing-indicator');
             if (typingIndicator) {
                 typingIndicator.remove();
             }
         }
-    
+
         findBestAnswer(userQuestion) {
             const documents = [userQuestion.toLowerCase(), ...this.faqAnswers.map(answer => answer.toLowerCase())];
             const vocabulary = new Set();
-    
+
             documents.forEach(doc => {
                 const words = this.tokenize(doc);
                 words.forEach(word => vocabulary.add(word));
             });
-    
+
             const vocabArray = Array.from(vocabulary);
             const tfidfVectors = documents.map(doc => this.calculateTFIDF(doc, documents, vocabArray));
             const userVector = tfidfVectors[0];
             const similarities = [];
-    
+
             for (let i = 1; i < tfidfVectors.length; i++) {
                 const similarity = this.cosineSimilarity(userVector, tfidfVectors[i]);
                 similarities.push(similarity);
             }
-    
+
             const bestAnswerIndex = similarities.indexOf(Math.max(...similarities));
-    
+
             // Increased the similarity threshold
             if (similarities[bestAnswerIndex] < 0.1) {
                 return "I'm sorry, I didn't find a relevant answer in my knowledge base.  Could you please rephrase your question, or ask about home elevator installation, space requirements, safety features, maintenance, pricing, technical specifications, door systems, control panels, or emergency features?";
             }
-    
+
             return this.faqAnswers[bestAnswerIndex];
         }
-    
+
         tokenize(text) {
             return text.toLowerCase()
                 .replace(/[^\w\s]/g, ' ')
                 .split(/\s+/)
                 .filter(word => word.length > 2);
         }
-    
+
         calculateTFIDF(document, allDocuments, vocabulary) {
             const words = this.tokenize(document);
             const wordCount = words.length;
             const tfidf = new Array(vocabulary.length).fill(0);
-    
+
             vocabulary.forEach((term, index) => {
                 const tf = words.filter(word => word === term).length / wordCount;
                 const documentsWithTerm = allDocuments.filter(doc =>
                     this.tokenize(doc).includes(term)
                 ).length;
                 const idf = Math.log(allDocuments.length / (documentsWithTerm + 1));
-    
+
                 tfidf[index] = tf * idf;
             });
-    
+
             return tfidf;
         }
-    
+
         cosineSimilarity(vectorA, vectorB) {
             const dotProduct = vectorA.reduce((sum, a, i) => sum + a * vectorB[i], 0);
             const magnitudeA = Math.sqrt(vectorA.reduce((sum, a) => sum + a * a, 0));
             const magnitudeB = Math.sqrt(vectorB.reduce((sum, b) => sum + b * b, 0));
-    
+
             if (magnitudeA === 0 || magnitudeB === 0) return 0;
             return dotProduct / (magnitudeA * magnitudeB);
         }
-    
+
         escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
-    
+
         scrollToBottom() {
             this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
         }
     }
-    
+
     document.addEventListener('DOMContentLoaded', () => {
         new GPlusElevatorChatbot();
     });
