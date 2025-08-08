@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPlus Elevator Chatbot</title>
+  <link rel="stylesheet" href="chatbot.css" />
+</head>
+<style>
+    /* General Reset */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+        background-color: #e9ebee; /* Light, softer background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    /* Chatbot Container */
+    .chatbot-container {
+        width: 420px; /* Slightly wider */
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Chatbot Header */
+    .chatbot-header {
+        background: linear-gradient(to right, #4CAF50, #388E3C); /* Gradient header */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    }
+    
+    .logo-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .logo-circle {
+        width: 55px;
+        height: 55px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Lifted effect */
+    }
+    
+    .logo-image {
+        max-width: 70%;
+        max-height: 70%;
+    }
+    
+    .header-text h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600; /* Semi-bold */
+    }
+    
+    .header-text p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        color: #e0f2f1; /* Softer text color */
+        font-style: italic;
+    }
+    
+    /* Chat Messages */
+    .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f5f5f5; /* Light gray background */
+    }
+    
+    .message {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: flex-start; /* Align avatars to the top */
+    }
+    
+    .message-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-size: 16px;
+        color: #fff;
+    }
+    
+    .bot-avatar {
+        background: #4CAF50; /* Green bot avatar */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-avatar {
+        background: #ddd; /* Light gray user avatar */
+        color: #555;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .message-content {
+        max-width: 75%;
+        padding: 12px;
+        border-radius: 18px; /* More rounded */
+        background: #fff;
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        font-size: 15px;
+        line-height: 1.4;
+        word-break: break-word; /* Prevent long words from breaking layout */
+    }
+    
+    .bot-message .message-content {
+        background: #DCF8C6; /* Light green for bot messages */
+        color: #2E3D49;
+    }
+    
+    .user-message .message-content {
+        background: #E0F7FA; /* Light blue for user messages */
+        color: #2E3D49;
+    }
+    
+    /* Typing Indicator */
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px 0;
+    }
+    
+    .typing-dot {
+        width: 9px;
+        height: 9px;
+        background-color: #4CAF50;
+        border-radius: 50%;
+        animation: typing 1.2s infinite ease-in-out;
+    }
+    
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+        0%, 60%, 100% {
+            transform: translateY(0);
+        }
+        30% {
+            transform: translateY(-9px);
+        }
+    }
+    
+    /* Chat Input Container */
+    .chat-input-container {
+        padding: 20px;
+        background: #fff;
+        border-top: 1px solid #eee; /* Lighter border */
+    }
+    
+    .input-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    
+    .input-wrapper input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ccc; /* Softer border */
+        border-radius: 24px; /* Pill-shaped input */
+        margin-right: 12px;
+        font-size: 15px;
+        outline: none; /* Remove focus outline */
+    }
+    
+    .input-wrapper button {
+        background: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 50%; /* Circular button */
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    }
+    
+    .input-wrapper button:hover {
+        background: #388E3C;
+    }
+    
+    .input-wrapper svg {
+        width: 22px;
+        height: 22px;
+        stroke: #fff;
+        stroke-width: 2.5;
+    }
+    
+    /* Quick Questions */
+    .quick-questions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+        justify-content: flex-start;
+    }
+    
+    .quick-btn {
+        background: #f0f0f0;
+        color: #444;
+        border: none;
+        border-radius: 20px;
+        padding: 7px 14px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .quick-btn:hover {
+        background: #4CAF50;
+        color: #fff;
+    }
+    
+    /* Scrollbar Styling (Webkit Browsers) */
+    .chat-messages::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+    }
+
+</style>
+<body>
+  <div class="chatbot-container">
+    <div class="chatbot-header">
+      <div class="logo-section">
+        <!-- Logo directly in logo-section -->
+        <img src="https://gpluselevator.com/assets/images/logo.png" alt="GPlus Logo" class="logo-image" />
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        <div class="message-avatar bot-avatar">🤖</div>
+        <div class="message-content">
+          <p>Hello! I'm the GPlus Elevator Chatbot. Ask me anything about GPlus Elevators - maintenance, installation, repairs, or general information!</p>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-container">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Type your question about elevators..."
+          autocomplete="off"
+        />
+        <button id="sendButton">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22,2 15,22 11,13 2,9"></polygon>
+          </svg>
+        </button>
+      </div>
+      <div class="quick-questions">
+        <button class="quick-btn" data-question="What services do you offer?">Services</button>
+        <button class="quick-btn" data-question="How much space is required for installation?">Space Requirements</button>
+        <button class="quick-btn" data-question="What safety features do you provide?">Safety Features</button>
+        <button
+          class="quick-btn"
+          data-question="Do you provide emergency backup systems?"
+        >
+          Emergency Backup
+        </button>
+        <button class="quick-btn" data-question="What warranty do you offer?">Warranty</button>
+      </div>
+    </div>
+  </div>
+  </script>
+      class GPlusElevatorChatbot {
+        constructor() {
+            this.faqAnswers = [
+                "Bye, have a great day.",
+                "A home elevator is a small lift designed to transport people and goods between different floors of a residential building.",
+                "GPlus home elevators can be installed in minimal space, typically requiring around 3 * 3 feet. If the elevator is installed on the flooring level, a minimum of 6 inches to 1 foot may be required.",
+                "No, our home elevators are designed for easy installation without extensive civil work. We can perform core cutting for existing homes to facilitate installation.",
+                "No, a license is not required for installing our home elevators in residential settings.",
+                "No specific approvals are required for installing a home elevator in older homes.",
+                "Installation in an older home can be achieved by performing core cutting to accommodate the elevator, allowing for seamless integration into your existing structure.",
+                "Yes, GPlus elevators adhere to safety standards and include features like emergency stop buttons and automatic braking systems for added security.",
+                "Our small home elevators are designed to carry up to two people comfortably.",
+                "The installation process typically takes around one week, depending on your home’s specific requirements.",
+                "Absolutely! We offer various design options, colors, and finishes to match your home’s aesthetics.",
+                "Regular maintenance is recommended to ensure safe and smooth operation. We offer maintenance packages for added convenience.",
+                "Our home elevators are budget-friendly, and the price may vary based on size and customization options. Contact us for a detailed quote.",
+                "Yes, our home elevators can be installed in both new constructions and existing homes without major renovations.",
+                "Our elevators come with an easy-to-use control panel, and some models may offer remote control options.",
+                "Our elevators are equipped with a backup system (ARD - Automatic Rescue Device) to ensure safe operation during power outages, allowing you to reach your destination safely.",
+                "We use 2 different types of controllers and drive systems. Here's an overview of both systems we are using, Separate Controller and Drive (INVT Drive): This setup involves a standalone Variable Frequency Drive (VFD) and a separate controller that manages the motor operations. Integrated or Monoblock Units (like Arcube/Arboxx from Arkel): These systems combine the VVVF drive unit, control board, and rescue function into a single compact unit.",
+                "Yes, our Arcube control unit's self fault diagnosis feature is particularly beneficial as it can significantly enhance operational efficiency and safety. Here's how it can be advantageous: Early Detection: The self fault diagnosis feature can identify issues early, potentially preventing minor problems from escalating into major faults that can increase downtime or operational costs. Troubleshooting: By providing specific fault codes or alerts, it simplifies the process of troubleshooting, allowing maintenance personnel to quickly identify and rectify issues. Maintenance Efficiency: This feature can help plan maintenance activities more efficiently, as it provides insights into the system's health and any components that might need attention. Reduced Downtime: With quick and efficient fault identification and resolution, overall system downtime can be minimized, improving productivity and reliability.",
+                "By default, we do not include an OSG. Since our lift is designed as a home elevator with a maximum travel height of 30 feet, we ensure safety by using a 2:1 roping system. Additionally, our elevator operates at a maximum speed of 0.8 meters per second, making an OSG an uncommon requirement for this application.",
+                "Our monoblock control unit, Arboxx, features an inbuilt MCB. Therefore, we do not include a separate MCB. However, if the customer wishes to have an additional MCB, we can connect it to our circuit. This will incur an additional cost for the customer.",
+                "The travel speed in an elevator typically refers to how quickly the elevator carriage moves between floors.For home elevators, the travel speed usually ranges from 0.3 to 1.0 meters per second (approximately 1 to 3.3 feet per second). We set by default 0.6 or 0.7 m per second.",
+                "Yes, the Arkel ARD system includes support for battery monitoring. A battery monitor is a device that tracks the status and performance of a battery, measuring factors like state of charge, voltage, current, and temperature. It provides real-time updates and alerts to ensure optimal battery health and efficient operation.",
+                "No, we do not support car rope monitoring. Car rope monitoring refers to a system that tracks the condition and performance of the ropes used in elevators. It assesses factors such as tension, wear, and alignment to ensure safety. However, we currently do not provide this feature.",
+                "No, we do not include a self-lubrication system for the car rope. Regular maintenance and lubrication must be performed manually to ensure optimal performance and longevity of the ropes.",
+                "Yes, we provide an emergency siren or alarm.",
+                "Yes, we provide manual and automatic cut-off for the fan and light. The system is designed so that when the elevator stops, both the fan and light automatically turn off to conserve energy. Additionally, the manual cut-off allows users to deactivate them as needed.",
+                "Yes, we provide both a floor announcing system and music for the elevator. The floor announcing system informs passengers of their current floor, while music can enhance the riding experience, making it more pleasant and engaging.",
+                "Door Open Button - Only Auto Door, Door Close Button - Only Auto Door, Emergency Alarm Button - Yes, Fan Button - Yes, Light Button - Yes, Floor Cancel Facility - Yes, Type of Display - 7 Segment LCD Display.",
+                "Display Type - 7 Segment LCD Display, Car Floor Level Indication - Yes.",
+                "1. Is it an open type or closed type car? - Closed Type Car, 2. If it is a closed type car, is it enclosed on three sides or four sides? - Four sides are closed (three sides with MS/SS panels and the front side has a Manual/Auto Sliding Door). 3. What type of front panel does the car have? - Manual/Auto Sliding Door (Mesh/MS/SS material). 4. Is there a mirror provided in the front panel of the car? - For Auto Door, either Half or Full Vision glass will be provided. 5. What material is used for the left and right side of the car panel? - MS/SS Panel. 6. Does it come with a glass enclosure type car? - Depending on customer requirements, we can provide either MS/SS with a glass enclosure or a full glass enclosure car. 7. Are you providing handrails on three sides inside the car? - By default, we provide handrails on only one side; however, if the customer prefers, we can provide three sides. 8. What are the details of the false ceiling? - An MS/SS designed false ceiling will be provided. 9. What are the flooring details? - Matt or Vinyl flooring stickers will be provided. 10. What details do you have for the light and fan? - A blower fan and LED lights will be provided.",
+                "We provide a manual mesh sliding door or an MS/SS swing door with half/full vision glass.",
+                "The door closure mechanism for an auto door typically involves an automatic actuator that opens and closes the door smoothly, often using sensors to detect when a passenger is present. For a manual door, the closure mechanism relies on a user-operated handle or latch, requiring passengers to open and close the door manually.",
+                "The door is an open type for manual operation or can be a concealed type for automatic operation, depending on the design and requirements.",
+                "The door locking mechanism typically involves electronic locks for automatic doors that engage when the elevator is in use. In the event of an emergency, the doors can be opened manually using an emergency release feature or key, allowing access to passengers safely. For manual doors, a key will be provided for passengers to use to open the door in case of an emergency.",
+                "The hinges used in the elevator doors are typically made of durable materials such as stainless steel (SS) or mild steel (MS) to ensure strength and longevity. They are designed to facilitate smooth operation, allowing the doors to open and close securely while accommodating frequent use.",
+                "Yes, we provide the sensor for Auto Doors. The light curtain is a safety device that consists of an array of sensors that create an invisible light beam across the elevator door opening. When someone or something passes through this beam while the door is closing, the sensors detect the obstruction and trigger the door to stop or reverse, preventing potential injuries to passengers. This enhances safety significantly by ensuring that doors do not close on individuals.",
+                "We provide buffer springs if a pit with a minimum depth of 1 foot is provided by the customer. However, in our elevator design, a pit is not required, so we do not fit buffer springs. To prevent over-travel, we use a limit switch at the bottom to cut off the car cabin if it attempts to go lower than the floor level.",
+                "Yes, in the Arkel controller, we provide an automatic phase changer feature. This mechanism detects any phase failure in the electrical supply and automatically switches to an alternate phase to ensure continuous operation of the elevator system. This enhances reliability and minimizes downtime in the event of a power interruption, allowing the elevator to maintain functionality under adverse conditions.",
+                "The emergency response time refers to the duration it takes for the elevator system to react to an emergency situation, such as an alarm activation or a power failure. The system can be set to respond within a minimum of 2 seconds, with the option to set it to 5 seconds as well. In 2 seconds, the ARD mode will be activated, and then after an additional 5 seconds, the lift will start its operation, ensuring that safety protocols are followed promptly before resuming service.",
+                "There is an additional 1 year of warranty provided after the actual expiry of the warranty.",
+              "The company is 3 years old."
+            ];
+    
+            this.chatMessages = document.getElementById('chatMessages');
+            this.userInput = document.getElementById('userInput');
+            this.sendButton = document.getElementById('sendButton');
+    
+            this.initializeEventListeners();
+        }
+    
+        initializeEventListeners() {
+            this.sendButton.addEventListener('click', () => this.handleSendMessage());
+            this.userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.handleSendMessage();
+                }
+            });
+    
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const question = e.target.getAttribute('data-question');
+                    this.userInput.value = question;
+                    this.handleSendMessage();
+                });
+            });
+        }
+    
+        handleSendMessage() {
+            const message = this.userInput.value.trim();
+            if (!message) return;
+    
+            const exitWords = ['exit', 'bye', 'quit', 'stop', 'end', 'close', 'finish', 'goodbye'];
+            if (exitWords.includes(message.toLowerCase())) {
+                this.addUserMessage(message);
+                this.addBotMessage("Goodbye! Have a great day and thank you for your interest in GPlus Elevators. Feel free to contact us anytime for your elevator needs!");
+                this.userInput.value = '';
+                return;
+            }
+    
+            this.addUserMessage(message);
+            this.userInput.value = '';
+            this.sendButton.disabled = true;
+    
+            this.showTypingIndicator();
+    
+            setTimeout(() => {
+                this.hideTypingIndicator();
+                const response = this.findBestAnswer(message);
+                this.addBotMessage(response);
+                this.sendButton.disabled = false;
+            }, 1000 + Math.random() * 1000);
+        }
+    
+        addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.innerHTML = `
+                <div class="message-avatar user-avatar">👤</div>
+                <div class="message-content">
+                    <p>${this.escapeHtml(message)}</p>
+                </div>
+            `;
+            this.chatMessages.appendChild(messageDiv);
+            this.scrollToBottom();
+        }
+    
+        addBotMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot-message';
+            messageDiv.innerHTML = `
+                <div class="message-avatar bot-avatar">🤖</div>
+                <div class="message-content">
+                    <p>${this.escapeHtml(message)}</p>
+                </div>
+            `;
+            this.chatMessages.appendChild(messageDiv);
+            this.scrollToBottom();
+        }
+    
+        showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar bot-avatar">🤖</div>
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            this.chatMessages.appendChild(typingDiv);
+            this.scrollToBottom();
+        }
+    
+        hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+    
+        findBestAnswer(userQuestion) {
+            const documents = [userQuestion.toLowerCase(), ...this.faqAnswers.map(answer => answer.toLowerCase())];
+            const vocabulary = new Set();
+    
+            documents.forEach(doc => {
+                const words = this.tokenize(doc);
+                words.forEach(word => vocabulary.add(word));
+            });
+    
+            const vocabArray = Array.from(vocabulary);
+            const tfidfVectors = documents.map(doc => this.calculateTFIDF(doc, documents, vocabArray));
+            const userVector = tfidfVectors[0];
+            const similarities = [];
+    
+            for (let i = 1; i < tfidfVectors.length; i++) {
+                const similarity = this.cosineSimilarity(userVector, tfidfVectors[i]);
+                similarities.push(similarity);
+            }
+    
+            const bestAnswerIndex = similarities.indexOf(Math.max(...similarities));
+    
+            // Increased the similarity threshold
+            if (similarities[bestAnswerIndex] < 0.1) {
+                return "I'm sorry, I didn't find a relevant answer in my knowledge base.  Could you please rephrase your question, or ask about home elevator installation, space requirements, safety features, maintenance, pricing, technical specifications, door systems, control panels, or emergency features?";
+            }
+    
+            return this.faqAnswers[bestAnswerIndex];
+        }
+    
+        tokenize(text) {
+            return text.toLowerCase()
+                .replace(/[^\w\s]/g, ' ')
+                .split(/\s+/)
+                .filter(word => word.length > 2);
+        }
+    
+        calculateTFIDF(document, allDocuments, vocabulary) {
+            const words = this.tokenize(document);
+            const wordCount = words.length;
+            const tfidf = new Array(vocabulary.length).fill(0);
+    
+            vocabulary.forEach((term, index) => {
+                const tf = words.filter(word => word === term).length / wordCount;
+                const documentsWithTerm = allDocuments.filter(doc =>
+                    this.tokenize(doc).includes(term)
+                ).length;
+                const idf = Math.log(allDocuments.length / (documentsWithTerm + 1));
+    
+                tfidf[index] = tf * idf;
+            });
+    
+            return tfidf;
+        }
+    
+        cosineSimilarity(vectorA, vectorB) {
+            const dotProduct = vectorA.reduce((sum, a, i) => sum + a * vectorB[i], 0);
+            const magnitudeA = Math.sqrt(vectorA.reduce((sum, a) => sum + a * a, 0));
+            const magnitudeB = Math.sqrt(vectorB.reduce((sum, b) => sum + b * b, 0));
+    
+            if (magnitudeA === 0 || magnitudeB === 0) return 0;
+            return dotProduct / (magnitudeA * magnitudeB);
+        }
+    
+        escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    
+        scrollToBottom() {
+            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        new GPlusElevatorChatbot();
+    });
+  </script>
+</body>
+</html>
