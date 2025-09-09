@@ -186,7 +186,7 @@
                 }
             }
             if (fieldName === 'phone' && value) {
-                const phoneRegex = /^[\+]?[[\d\s\-\(\)]{10,}$/;
+                const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
                 if (!phoneRegex.test(value)) {
                     field.classList.add('border-error');
                     return false;
