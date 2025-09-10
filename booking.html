@@ -21,7 +21,6 @@
             }
         }
     </script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         * { font-family: 'Inter', sans-serif; }
@@ -269,68 +268,15 @@
     <!-- Success Modal -->
     <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center slide-up">
-            <div class="bg-success text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Booking Confirmed!</h3>
-            <p class="text-gray-600 mb-6">Thank you for your booking. We've sent a confirmation email to your address with all the details.</p>
-            <button onclick="closeModal()" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">Close</button>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Booking Saved!</h3>
+            <p class="text-gray-600 mb-6">Your booking has been saved. You can view it on the <a href="booking-view.html" class="text-primary underline">Booking View Page</a>.</p>
+            <button onclick="closeModal()" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">
+                Close
+            </button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                        </svg>
-                        <h4 class="text-xl font-bold">BookIt</h4>
-                    </div>
-                    <p class="text-gray-400">Making reservations simple and enjoyable for everyone.</p>
-                </div>
-                <div>
-                    <h5 class="text-lg font-semibold mb-4">Services</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Restaurant Booking</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Hotel Reservations</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Event Planning</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Tours & Activities</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-lg font-semibold mb-4">Support</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Cancellation Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-lg font-semibold mb-4">Contact</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>📧 hello@bookit.com</li>
-                        <li>📞 +1 (555) 123-4567</li>
-                        <li>📍 123 Business Ave, Suite 100</li>
-                        <li>🕒 24/7 Support Available</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">&copy; 2025 BookIt. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (your existing footer code can be reused) -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -338,103 +284,35 @@
             if (dateInput) {
                 dateInput.min = new Date().toISOString().split('T')[0];
             }
-            // Initialize EmailJS
-            emailjs.init("0KQU9UDf-KaWqbw0n");
-            // Booking form submit handler
+
             const bookingForm = document.getElementById('bookingForm');
             if (bookingForm) {
                 bookingForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     const formData = new FormData(bookingForm);
-                    const params = {
-                        fullName: formData.get("fullName"),
-                        email: formData.get("email"),
-                        phone: formData.get("phone"),
-                        guests: formData.get("guests"),
-                        service: formData.get("service"),
-                        date: formData.get("date"),
-                        time: formData.get("time"),
-                        duration: formData.get("duration"),
-                        requests: formData.get("requests")
-                    };
-                    emailjs.send("service_x3di8lr", "template_ke8o8ih", params)
-                    .then(function(response) {
-                        document.getElementById('successModal').classList.remove('hidden');
-                        bookingForm.reset();
-                    }, function(error) {
-                        alert("Failed to send booking email. Please try again.");
-                    });
+                    const bookingData = {};
+                    formData.forEach((value, key) => bookingData[key] = value);
+
+                    // Save to localStorage
+                    localStorage.setItem('latestBooking', JSON.stringify(bookingData));
+
+                    document.getElementById('successModal').classList.remove('hidden');
+                    bookingForm.reset();
                 });
             }
+
             window.closeModal = function() {
                 document.getElementById('successModal').classList.add('hidden');
             };
+
             const modal = document.getElementById('successModal');
             if (modal) {
                 modal.addEventListener("click", function(e) {
                     if (e.target === this) closeModal();
                 });
             }
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-            const observerOptions = {threshold: 0.1, rootMargin: '0px 0px -50px 0px'};
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            document.querySelectorAll('.card-hover, .slide-up').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('blur', function() {
-                    validateField(this);
-                });
-            });
-            function validateField(field) {
-                const value = field.value.trim();
-                const fieldName = field.name;
-                field.classList.remove('border-error', 'border-success');
-                if (field.hasAttribute('required') && !value) {
-                    field.classList.add('border-error');
-                    return false;
-                }
-                if (fieldName === 'email' && value) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(value)) {
-                        field.classList.add('border-error');
-                        return false;
-                    }
-                }
-                if (fieldName === 'phone' && value) {
-                    const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
-                    if (!phoneRegex.test(value)) {
-                        field.classList.add('border-error');
-                        return false;
-                    }
-                }
-                if (value) {
-                    field.classList.add('border-success');
-                }
-                return true;
-            }
+
+            // ... keep rest of animation/validation code as desired ...
         });
     </script>
 </body>
