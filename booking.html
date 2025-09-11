@@ -236,7 +236,7 @@
                     </div>
                     <div class="mt-8">
                         <label class="flex items-start space-x-3">
-                            <input type="checkbox" name="terms" required class="mt-1 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+<input type="checkbox" name="terms" class="mt-1 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
                             <span class="text-sm text-gray-600">
                                 I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> and 
                                 <a href="#" class="text-primary hover:underline">Privacy Policy</a>. I understand that a confirmation email will be sent to me with booking details and payment instructions.
@@ -269,7 +269,7 @@
     <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center slide-up">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Booking Saved!</h3>
-            <p class="text-gray-600 mb-6">Your booking has been saved. You can view it on the <a href="booking-view.html" class="text-primary underline">Booking View Page</a>.</p>
+            <p class="text-gray-600 mb-6">Your booking has been saved. You can view it on the <a href="view-booking.html" class="text-primary underline">Booking View Page</a>.</p>
             <button onclick="closeModal()" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">
                 Close
             </button>
@@ -288,6 +288,7 @@
             const bookingForm = document.getElementById('bookingForm');
             if (bookingForm) {
                 bookingForm.addEventListener('submit', function(e) {
+                    console.log("Form submitted");
                     e.preventDefault();
                     const formData = new FormData(bookingForm);
                     const bookingData = {};
@@ -296,7 +297,11 @@
                     // Save to localStorage
                     localStorage.setItem('latestBooking', JSON.stringify(bookingData));
 
-                    document.getElementById('successModal').classList.remove('hidden');
+                    console.log("Showing success modal");
+                    const modal = document.getElementById('successModal');
+                    console.log("Modal before removing hidden:", modal.className);
+                    modal.classList.remove('hidden');
+                    console.log("Modal after removing hidden:", modal.className);
                     bookingForm.reset();
                 });
             }
