@@ -644,14 +644,14 @@
       // Display results
       resultDiv.style.display = 'block';
       resultDiv.innerHTML = `
-        ✅ <strong>Base Price</strong>: ₹${basePrice.toLocaleString("en-IN")}<br>
-        ✅ <strong>Swing Door Cost</strong>: ₹${swingDoorCost.toLocaleString("en-IN")}<br>
-        ✅ <strong>Indoor or Outdoor Cost</strong>: ₹${outdoorCost.toLocaleString("en-IN")}<br>
-        ✅ <strong>Extra Accessories Cost</strong>: ₹${additionalCost.toLocaleString("en-IN")}<br>
-        ➖ <i style="color: red;">Discount for Selected Model</i>: ₹${discount.toLocaleString("en-IN")}<br>
-        ➕ <strong>Total Additional Cost</strong>: ₹${totalAdditional.toLocaleString("en-IN")}<br>
-        💰 <strong>Final Price</strong>: ₹${totalPrice.toLocaleString("en-IN")}<br>
-        ${amc === "yes" ? `✅ <strong>AMC Cost (${amcType})</strong>: ₹${amcCost.toLocaleString("en-IN")}` : ''}
+        [OK] <strong>Base Price</strong>: Rs.${basePrice.toLocaleString("en-IN")}<br>
+        [OK] <strong>Swing Door Cost</strong>: Rs.${swingDoorCost.toLocaleString("en-IN")}<br>
+        [OK] <strong>Indoor or Outdoor Cost</strong>: Rs.${outdoorCost.toLocaleString("en-IN")}<br>
+        [OK] <strong>Extra Accessories Cost</strong>: Rs.${additionalCost.toLocaleString("en-IN")}<br>
+        [-] <i style="color: red;">Discount for Selected Model</i>: Rs.${discount.toLocaleString("en-IN")}<br>
+        [+] <strong>Total Additional Cost</strong>: Rs.${totalAdditional.toLocaleString("en-IN")}<br>
+        [Price] <strong>Final Price</strong>: Rs.${totalPrice.toLocaleString("en-IN")}<br>
+        ${amc === "yes" ? '[OK] <strong>AMC Cost (' + amcType + ')</strong>: Rs.' + amcCost.toLocaleString("en-IN") : ''}
       `;
 
       // Prepare media key and lookup
@@ -705,7 +705,7 @@ var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
-s1.src='https://embed.tawk.to/64a7f7a7cc26a871b02f3a0a/1h4q3qv7k';
+s1.src='https://embed.tawk.to/68c4ea6f280fe21925718559/1j50kmr1j';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
