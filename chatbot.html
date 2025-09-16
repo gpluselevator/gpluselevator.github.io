@@ -151,8 +151,16 @@
         </ul>
     </nav>
     <main>
-        <h2 class="text-2xl font-bold mb-4 text-center">AI Assistant</h2>
-        <div class="chat-container">
+        <div class="flex justify-center gap-4 mb-6">
+            <button id="aiAssistantBtn" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">
+                AI Assistant
+            </button>
+            <button id="liveSupportBtn" class="bg-secondary text-white px-6 py-3 rounded-full font-semibold btn-hover">
+                Live Customer Support
+            </button>
+        </div>
+        <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center hidden">AI Assistant</h2>
+        <div id="chatContainer" class="chat-container hidden">
             <div class="messages" id="messages" aria-live="polite" aria-atomic="true"></div>
             <form id="chatForm" class="input-area" aria-label="Chat input form">
                 <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off" required />
@@ -211,18 +219,48 @@
             });
         });
     </script>
-
+    <div id='tawk_68c4ea6f280fe21925718559'></div>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); Tawk_API.embedded='tawk_68c4ea6f280fe21925718559';
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
-    s1.src='https://tawk.to/chat/68c4ea6f280fe21925718559/1j50j7h5b';
+    s1.src='https://embed.tawk.to/68c4ea6f280fe21925718559/1j52063c0';
     s1.charset='UTF-8';
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
+    </script>
+    <script>
+        // Toggle chatbot visibility and heading on AI Assistant button click
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        const liveSupportBtn = document.getElementById('liveSupportBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatHeading = document.getElementById('chatHeading');
+
+        aiAssistantBtn.addEventListener('click', () => {
+            const isVisible = !chatContainer.classList.contains('hidden');
+            if (isVisible) {
+                chatContainer.classList.add('hidden');
+                chatHeading.classList.add('hidden');
+            } else {
+                chatContainer.classList.remove('hidden');
+                chatHeading.classList.remove('hidden');
+            }
+        });
+
+        // Open Tawk.to live chat widget on Live Customer Support button click
+        liveSupportBtn.addEventListener('click', () => {
+            function openTawkChat() {
+                if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
+                    window.Tawk_API.maximize();
+                } else {
+                    setTimeout(openTawkChat, 500);
+                }
+            }
+            openTawkChat();
+        });
     </script>
     <!--End of Tawk.to Script-->
 </body>
