@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Experience - Premium Bookings</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        img-src 'self' https://gpluselevator.com;
+        font-src 'self' https://fonts.gstatic.com;
+        connect-src 'self';
+        frame-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';">
     <script>
         tailwind.config = {
             theme: {
@@ -63,10 +74,9 @@
     <header class="gradient-bg text-white py-6">
         <div class="container mx-auto px-6">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <img src="images/logo.png" alt="GPlus Elevator Logo" class="h-10 w-auto">
-                    <span class="text-xl font-bold">GPlus Elevator</span>
-                </div>
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="https://gpluselevator.com/assets/images/logo.png" alt="GPlus Elevator Logo" class="w-40 h-12" />
+                </a>
                 <nav>
                     <ul class="flex space-x-6 text-white">
                         <li><a href="index.html" class="hover:text-gray-300">Home</a></li>

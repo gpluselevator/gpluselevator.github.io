@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPlus Elevator</title>
     <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://embed.tawk.to;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self';
+        connect-src 'self';
+        frame-src 'self' https://widget.taggbox.com https://docs.google.com https://www.youtube.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self' https://formspree.io;">
     <meta name="google-site-verification" content="3CPJg1P4cl3uA4AKg8A7HgNCOt10u4gETJz3Vgoe-C8" />
     <style>
     body {
@@ -246,6 +257,85 @@
       border-color: #ff0800 !important;
       box-shadow: 0 0 8px 2px #d9534f !important;
     }
+    /* Testimonials & Comparison Section */
+    .feature-section {
+      max-width: 900px;
+      margin: 3rem auto;
+      text-align: left;
+    }
+    .feature-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e2a47;
+      margin-bottom: 2rem;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(30, 42, 71, 0.05);
+      position: relative;
+    }
+    .verified-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: #10b981; /* success color */
+      color: white;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .comparison-table th, .comparison-table td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .comparison-table th { background-color: #1e2a47; color: white; }
+    .taggbox-container {
+        width: 25rem; /* 400px */
+        height: 25rem; /* 400px */
+        border: 1px solid #e5e7eb;
+        margin: 0 auto; /* Center the box */
+    }
+    /* Feedback Form Section */
+    .feedback-form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(30, 42, 71, 0.05);
+      border: 1px solid #e5e7eb;
+    }
+    .feedback-form .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .feedback-form label {
+      margin-top: 0;
+    }
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -265,6 +355,51 @@
     </nav>
     <main>
         <p class="intro-text">Welcome to GPlus Elevator.</p>
+
+    <!-- Comparison Section -->
+    <div class="feature-section">
+      <h2>Model Comparison</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Classic Model</th>
+            <th>Ultra Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Technology</strong></td>
+            <td>Standard Hydraulic</td>
+            <td>Advanced Gearless with V3F Drive</td>
+          </tr>
+          <tr>
+            <td><strong>Warranty</strong></td>
+            <td>1 Year</td>
+            <td>3 Years</td>
+          </tr>
+          <tr>
+            <td><strong>Cabin Material</strong></td>
+            <td>MS Powder Coated</td>
+            <td>Stainless Steel (SS)</td>
+          </tr>
+          <tr>
+            <td><strong>Best For</strong></td>
+            <td>Budget-conscious projects</td>
+            <td>Premium feel and long-term performance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="feature-section">
+      <h2>What Our Customers Say</h2>
+      <div class="taggbox-container">
+        <iframe src="https://widget.taggbox.com/302016?website=1" style="width:100%;height:100%;overflow:auto;border:none;"></iframe>
+      </div>
+    </div>
+
     <div id="preset-buttons-container"></div>
 
     <h3>Select the following:</h3>
@@ -375,6 +510,31 @@
     <div id="media-container" style="display: none; margin-top: 20px;" aria-live="polite" aria-atomic="true" role="region">
       <div id="slide-column" aria-label="Google Slide presentation"></div>
       <div id="video-column" aria-label="Model videos"></div>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="feature-section" id="feedback-section">
+      <h2>Share Your Feedback</h2>
+      <p style="text-align: center; color: #555; margin-bottom: 2rem;">We value your opinion! Let us know how we're doing or how we can improve.</p>
+      <!-- 
+        To receive feedback emails, create a free account at https://formspree.io/ 
+        and replace the action URL below with your own form endpoint.
+      -->
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="feedback-form">
+        <div class="form-group">
+          <label for="feedback-name">Name (Optional)</label>
+          <input type="text" id="feedback-name" name="name" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all input-focus">
+        </div>
+        <div class="form-group">
+          <label for="feedback-email">Email (Optional)</label>
+          <input type="email" id="feedback-email" name="email" placeholder="your@email.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all input-focus">
+        </div>
+        <div class="form-group">
+          <label for="feedback-message">Your Feedback *</label>
+          <textarea id="feedback-message" name="message" rows="5" required placeholder="Tell us what you think..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all input-focus"></textarea>
+        </div>
+        <button type="submit">Send Feedback</button>
+      </form>
     </div>
   </main>
     <footer>
@@ -698,6 +858,28 @@
       // Scroll to the result div smoothly
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
+    // Function to handle URL parameters on page load
+    function handleUrlParameters() {
+        const params = new URLSearchParams(window.location.search);
+        const fields = ['floors', 'size', 'model', 'type', 'doorMaterial', 'location', 'door', 'additional', 'amc', 'amc-type'];
+        let hasParams = false;
+
+        fields.forEach(field => {
+            if (params.has(field)) {
+                const element = document.getElementById(field);
+                if (element) {
+                    element.value = params.get(field);
+                    element.dispatchEvent(new Event('change')); // Trigger change event to update dependencies
+                    hasParams = true;
+                }
+            }
+        });
+
+        if (hasParams) document.getElementById('calculateBtn').click();
+    }
+    // Run the function on page load
+    window.addEventListener('DOMContentLoaded', handleUrlParameters);
   </script>
 <!-- Start of Tawk.to Live Chat Script -->
 <script type="text/javascript">
@@ -714,6 +896,3 @@ s0.parentNode.insertBefore(s1,s0);
 <!-- End of Tawk.to Live Chat Script -->
 </body>
 </html>
-
-
-
