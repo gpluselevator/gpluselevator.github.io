@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://embed.tawk.to; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://embed.tawk.to https://tawk.to; img-src 'self' data: https://embed.tawk.to; frame-src https://embed.tawk.to;">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chatbot - GPlus Elevator</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -173,7 +175,7 @@
         <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center hidden">AI Assistant</h2>
         <div id="chatContainer" class="chat-container hidden">
             <div class="messages" id="messages" aria-live="polite" aria-atomic="true"></div>
-            <form id="chatForm" class="input-area" aria-label="Chat input form">
+            <form id="chatForm" class="input-area" aria-label="Chat input form" autocomplete="off">
                 <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off" required />
                 <button type="submit" class="send-btn" aria-label="Send message">Send</button>
             </form>
@@ -185,6 +187,19 @@
         </div>
     </main>
     <script>
+        // Security: Escape HTML before displaying user text
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                })[m];
+            });
+        }
+
         const messagesDiv = document.getElementById('messages');
         const chatForm = document.getElementById('chatForm');
         const chatInput = document.getElementById('chatInput');
@@ -307,7 +322,7 @@
         function addMessage(text, sender) {
             const messageElem = document.createElement('div');
             messageElem.classList.add('message', sender);
-            messageElem.textContent = text;
+            messageElem.innerHTML = escapeHTML(text);
             messagesDiv.appendChild(messageElem);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
             return messageElem;
