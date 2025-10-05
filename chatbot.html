@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://embed.tawk.to; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://embed.tawk.to https://tawk.to; img-src 'self' data: https://embed.tawk.to; frame-src https://embed.tawk.to;">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chatbot - GPlus Elevator</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -175,7 +173,7 @@
         <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center hidden">AI Assistant</h2>
         <div id="chatContainer" class="chat-container hidden">
             <div class="messages" id="messages" aria-live="polite" aria-atomic="true"></div>
-            <form id="chatForm" class="input-area" aria-label="Chat input form" autocomplete="off">
+            <form id="chatForm" class="input-area" aria-label="Chat input form">
                 <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off" required />
                 <button type="submit" class="send-btn" aria-label="Send message">Send</button>
             </form>
@@ -187,19 +185,6 @@
         </div>
     </main>
     <script>
-        // Security: Escape HTML before displaying user text
-        function escapeHTML(str) {
-            return str.replace(/[&<>"']/g, function(m) {
-                return ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;'
-                })[m];
-            });
-        }
-
         const messagesDiv = document.getElementById('messages');
         const chatForm = document.getElementById('chatForm');
         const chatInput = document.getElementById('chatInput');
@@ -322,7 +307,7 @@
         function addMessage(text, sender) {
             const messageElem = document.createElement('div');
             messageElem.classList.add('message', sender);
-            messageElem.innerHTML = escapeHTML(text);
+            messageElem.textContent = text;
             messagesDiv.appendChild(messageElem);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
             return messageElem;
@@ -376,10 +361,12 @@ Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
                 // Handle special "action" agents
                 if (chosenAgentKey === 'bookingAction') {
                     thinkingMsg.innerHTML = `Of course! You can book an appointment on our booking page. <a href="booking.html" class="text-primary underline">Click here to book now.</a>`;
+                    reEnableInputs();
                     return; // End the flow here
                 }
                 if (chosenAgentKey === 'salesAgent' && (userInput.toLowerCase().includes('price') || userInput.toLowerCase().includes('quote'))) {
                     thinkingMsg.innerHTML = `I can help with that! To give you the most accurate price, please visit our powerful price calculator. <a href="index.html" class="text-primary underline">Click here to get your instant quote.</a>`;
+                    reEnableInputs();
                     return; // End the flow here
                 }
 
@@ -410,15 +397,7 @@ Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
                     thinkingMsg.textContent = fallbackResponse;
                 }
             } finally {
-                // Re-enable input regardless of success or failure
-                chatInput.disabled = false;
-                sendBtn.disabled = false;
-                sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                quickQuestions.forEach(button => {
-                    button.disabled = false;
-                    button.classList.remove('opacity-50', 'cursor-not-allowed');
-                    button.classList.add('bg-primary', 'text-white'); // Change to blue
-                });
+                reEnableInputs();
             }
         });
 
@@ -430,6 +409,19 @@ Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
                 chatForm.dispatchEvent(new Event('submit'));
             });
         });
+
+        function reEnableInputs() {
+            // Re-enable input regardless of success or failure
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            quickQuestions.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('opacity-50', 'cursor-not-allowed');
+                // Optional: Reset style if needed, but removing disabled state is key
+                // button.classList.add('bg-primary', 'text-white'); 
+            });
+        }
     </script>
     <div id='tawk_68c4ea6f280fe21925718559'></div>
     <!--Start of Tawk.to Script-->
