@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
-        script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://embed.tawk.to;
+        script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://elfsightcdn.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         img-src 'self' data:;
         font-src 'self' https://fonts.gstatic.com;
@@ -166,9 +166,6 @@
             <button id="aiAssistantBtn" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">
                 AI Assistant
             </button>
-            <button id="liveSupportBtn" class="bg-secondary text-white px-6 py-3 rounded-full font-semibold btn-hover">
-                Live Customer Support
-            </button>
         </div>
         <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center hidden">AI Assistant</h2>
         <div id="chatContainer" class="chat-container hidden">
@@ -191,119 +188,6 @@
         const sendBtn = chatForm.querySelector('.send-btn');
         const quickQuestions = document.querySelectorAll('.quick-questions button');
 
-        // The URL of your new secure Cloudflare Worker proxy.
-        // Replace this with the actual URL of your deployed worker.
-        const PROXY_URL = 'https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev';
-
-
-        // Define multiple AI agents with their prompt prefixes or roles
-        const aiAgents = {
-            "elevatorExpert": {
-                name: "Elevator Expert",
-                promptPrefix: "You are an expert elevator technician. Answer the user's questions about elevator installation, maintenance, and repair."
-            },
-            "salesAgent": {
-                name: "Sales Agent",
-                promptPrefix: "You are a sales representative. Help the user with pricing, product details, and booking information."
-            },
-            "supportAgent": {
-                name: "Support Agent",
-                promptPrefix: "You are a friendly customer support agent for GPlus Elevator. Greet users warmly and assist them with any questions about our elevator services, bookings, or general inquiries. Be helpful, professional, and welcoming."
-            },
-            "generalAssistant": {
-                name: "General Assistant",
-                promptPrefix: "You are a helpful and knowledgeable AI assistant for GPlus Elevator. Answer general questions about the company, its history, and its mission. Provide clear and concise information."
-            },
-            "aiAssistant": {
-                name: "AI Assistant",
-                promptPrefix: "You are a helpful AI assistant. Answer the user's questions on a wide variety of topics. Be friendly and informative."
-            },
-            "bookingAction": {
-                name: "Booking Action",
-                promptPrefix: "You are an action-oriented assistant. The user wants to book an appointment. Confirm this and provide a link to the booking page."
-            }
-        };
-
-        // Function to call the AI API with a prompt and return the response text
-        async function callAI(prompt, originalUserInput = null) {
-            try {
-                const response = await fetch(PROXY_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        model: "mistral-small-latest",
-                        messages: [{ role: "user", content: prompt }],
-                        max_tokens: 500,
-                        temperature: 0.5
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API request failed: ${response.status}`);
-                }
-
-                const data = await response.json();
-                if (data.choices && data.choices.length > 0) {
-                    return data.choices[0].message.content.trim();
-                } else {
-                    throw new Error("No response from API");
-                }
-            } catch (error) {
-                console.error("AI API error:", error);
-                return getFallbackResponse(originalUserInput || prompt);
-            }
-        }
-
-        // Fallback responses when API is not available
-        function getFallbackResponse(userInput) {
-            const lowerInput = userInput.toLowerCase();
-
-            // Handle greetings
-            if (lowerInput.includes('hi') || lowerInput.includes('hello') || lowerInput.includes('hey')) {
-                return "Hello! Welcome to GPlus Elevator! I'm here to help you with any questions about our elevator services, bookings, or general inquiries. How can I assist you today?";
-            }
-
-            // Handle service-related questions
-            if (lowerInput.includes('service') || lowerInput.includes('offer')) {
-                return "We offer comprehensive elevator services including installation, maintenance, repair, and modernization. Our expert technicians provide 24/7 support and ensure your elevators are safe and reliable.";
-            }
-
-            // Handle booking questions
-            if (lowerInput.includes('book') || lowerInput.includes('appointment') || lowerInput.includes('schedule')) {
-                return "You can book an appointment through our booking page or by contacting our customer support team. We offer flexible scheduling and can accommodate urgent repair needs.";
-            }
-
-            // Handle pricing questions
-            if (lowerInput.includes('cost') || lowerInput.includes('price') || lowerInput.includes('pricing')) {
-                return "Our pricing depends on the specific service required. Please contact our sales team for a detailed quote based on your elevator type, location, and service needs.";
-            }
-
-            // Handle hours questions
-            if (lowerInput.includes('hour') || lowerInput.includes('time') || lowerInput.includes('available')) {
-                return "Our business hours are Monday to Friday, 8:00 AM to 6:00 PM. We also offer 24/7 emergency support for urgent elevator issues.";
-            }
-
-            // Default response
-            return "Thank you for contacting GPlus Elevator! I'm currently operating in offline mode. For immediate assistance, please visit our booking page or contact our customer support team directly. How else can I help you?";
-        }
-
-        // Function to handle basic greetings
-        function isGreeting(input) {
-            const greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'howdy', 'greetings', 'hiya'];
-            const lowerInput = input.toLowerCase().trim();
-            return greetings.some(greeting => lowerInput.includes(greeting)) || lowerInput === 'hi' || lowerInput === 'hello';
-        }
-
-        // Function to call an AI agent with the user input
-        async function callAgent(agentKey, userInput) {
-            const agent = aiAgents[agentKey];
-            if (!agent) return "";
-            const prompt = `${agent.promptPrefix}\nUser: ${userInput}\nAnswer:`;
-            return await callAI(prompt, userInput);
-        }
-
         function addMessage(text, sender) {
             const messageElem = document.createElement('div');
             messageElem.classList.add('message', sender);
@@ -312,6 +196,32 @@
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
             return messageElem;
         }
+
+        // Function to call our new Flask backend
+        async function getRagResponse(question) {
+            try {
+                // NOTE: This URL assumes your Flask app is running locally.
+                // For production, you would deploy the Flask app and use its public URL.
+                const response = await fetch('http://127.0.0.1:5001/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.answer || `Request failed with status ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.answer;
+
+            } catch (error) {
+                console.error("RAG API Error:", error);
+                return "I'm sorry, but I'm having trouble connecting to the server. Please ensure the backend service is running and try again.";
+            }
+        }
+
 
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -334,68 +244,9 @@
             const thinkingMsg = addMessage("Thinking...", 'bot');
 
             try {
-                // Step 1: Ask the main AI Assistant to choose the right agent.
-                const availableAgentsForRouting = Object.keys(aiAgents).filter(k => k !== 'aiAssistant').join(', ');
-                 const routingPrompt = `
-You are the primary AI assistant. Your first job is to route the user's query to the best specialized agent or action.
-User query: "${userInput}"
-Available specialized agents and actions: ${availableAgentsForRouting}.
-
-Analyze the user's query and choose the single most appropriate agent or action from the list.
-- If the user wants to book an appointment, schedule a meeting, or make a reservation, respond with "bookingAction".
-- If the user is asking for a price, a quote, or how much something costs, respond with "salesAgent".
-- If the user has a technical question about elevators (installation, repair, maintenance), respond with "elevatorExpert".
-- For general questions about the company, respond with "generalAssistant".
-- For any other general conversation or question, respond with "aiAssistant".
-If it's a simple greeting, respond with "supportAgent".
-
-Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
-`;
-                let chosenAgentKey = await callAI(routingPrompt, userInput);
-                
-                // Clean up the response to get only the key
-                chosenAgentKey = chosenAgentKey.replace(/["`]/g, '').trim();
-
-                let agents = [];
-
-                // Handle special "action" agents
-                if (chosenAgentKey === 'bookingAction') {
-                    thinkingMsg.innerHTML = `Of course! You can book an appointment on our booking page. <a href="booking.html" class="text-primary underline">Click here to book now.</a>`;
-                    reEnableInputs();
-                    return; // End the flow here
-                }
-                if (chosenAgentKey === 'salesAgent' && (userInput.toLowerCase().includes('price') || userInput.toLowerCase().includes('quote'))) {
-                    thinkingMsg.innerHTML = `I can help with that! To give you the most accurate price, please visit our powerful price calculator. <a href="index.html" class="text-primary underline">Click here to get your instant quote.</a>`;
-                    reEnableInputs();
-                    return; // End the flow here
-                }
-
-                if (aiAgents.hasOwnProperty(chosenAgentKey)) {
-                    agents.push(chosenAgentKey);
-                } else {
-                    // Fallback if the routing fails or returns an invalid agent
-                    agents = ['aiAssistant'];
-                }
-
-                // Call all relevant agents in parallel
-                const agentResponses = await Promise.all(agents.map(agentKey => callAgent(agentKey, userInput)));
-
-                // Combine responses
-                let combinedResponse = agentResponses.filter(r => r).join("\n\n---\n\n");
-
-                // Add a personal touch if the user asks how the bot is.
-                // Update the "Thinking..." message with the final response.
-                if (userInput.toLowerCase().includes("how are you")) {
-                    // Add a personal touch to the response
-                    combinedResponse += "\n\nWhat about you?";
-                }
-
-                if (combinedResponse) {
-                    thinkingMsg.textContent = combinedResponse;
-                } else {
-                    const fallbackResponse = getFallbackResponse(userInput);
-                    thinkingMsg.textContent = fallbackResponse;
-                }
+                // Get the response from our new RAG backend
+                const response = await getRagResponse(userInput);
+                thinkingMsg.textContent = response;
             } finally {
                 reEnableInputs();
             }
@@ -423,23 +274,9 @@ Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
             });
         }
     </script>
-    <div id='tawk_68c4ea6f280fe21925718559'></div>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); Tawk_API.embedded='tawk_68c4ea6f280fe21925718559';
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/68c4ea6f280fe21925718559/1j52063c0';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
     <script>
         // Toggle chatbot visibility and heading on AI Assistant button click
         const aiAssistantBtn = document.getElementById('aiAssistantBtn');
-        const liveSupportBtn = document.getElementById('liveSupportBtn');
         const chatContainer = document.getElementById('chatContainer');
         const chatHeading = document.getElementById('chatHeading');
 
@@ -457,19 +294,10 @@ Respond with ONLY the agent's key (e.g., "salesAgent" or "bookingAction").
                 }
             }
         });
-
-        // Open Tawk.to live chat widget on Live Customer Support button click
-        liveSupportBtn.addEventListener('click', () => {
-            function openTawkChat() {
-                if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
-                    window.Tawk_API.maximize();
-                } else {
-                    setTimeout(openTawkChat, 500);
-                }
-            }
-            openTawkChat();
-        });
     </script>
-    <!--End of Tawk.to Script-->
+
+    <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
 </body>
 </html>
