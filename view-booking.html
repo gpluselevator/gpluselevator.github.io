@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>View Booking - Premium Bookings</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://elfsightcdn.com https://static.elfsight.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
+        img-src 'self' data: https://static.elfsight.com;
+        font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
+        connect-src 'self' https://apps.elfsight.com https://elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://apps.elfsight.com;
+    ">
     <script>
         tailwind.config = {
             theme: {
@@ -55,6 +64,9 @@
         </div>
     </main>
 
+    <footer>
+        <p>&copy; <span id="copyright-year"></span> GPlus Elevator. All Rights Reserved.</p>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const bookingDetailsDiv = document.getElementById('bookingDetails');
@@ -87,6 +99,14 @@
             `;
             bookingDetailsDiv.innerHTML = bookingHTML;
         });
+
+        // Set current year in footer
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
     </script>
+
+    <!-- Elfsight Widgets -->
+    <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
+    <div class="elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d" data-elfsight-app-lazy></div>
+    <script src="https://elfsightcdn.com/platform.js" data-use-service-core defer></script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat with Us - GPlus Elevator</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://elfsightcdn.com https://static.elfsight.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
+        img-src 'self' data: https://static.elfsight.com;
+        font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
+        connect-src 'self' https://apps.elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://apps.elfsight.com;
+    ">
+  <style>
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GPlus Elevator - Chat with Us</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="pictures.html">Gallery</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="fabrication.html">Fabrication</a></li>
+      <li><a href="posts.html">Posts</a></li>
+      <li><a href="chatbot.html">Chatbot</a></li>
+      <li><a href="chat-with-us.html">Chat with Us</a></li>
+      <li><a href="booking.html">Booking</a></li>
+    </ul>
+  </nav>
+  <main>
+    <!-- Elfsight Facebook Chat | Untitled Facebook Chat -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-2b97eee8-4021-4fc5-900c-a90838a6dd7e" data-elfsight-app-lazy></div>
+  </main>
+  <footer>
+    <p>&copy; <span id="copyright-year"></span> GPlus Elevator. All Rights Reserved.</p>
+    <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
+        Contact us: <a href="tel:+919363613828" style="color: #ccc; text-decoration: none;">+91 9363613828</a>
+    </p>
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

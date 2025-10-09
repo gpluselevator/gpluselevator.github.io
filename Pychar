@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chatbot - GPlus Elevator</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js"></script> -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://elfsightcdn.com https://static.elfsight.com https://universe-static.elfsightcdn.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://elfsightcdn.com https://static.elfsight.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
         img-src 'self' data: https://static.elfsight.com;
         font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
-        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev http://127.0.0.1:5001 https://apps.elfsight.com https://elfsight.com https://core.service.elfsight.com https://storage.elfsight.com wss://socket.elfsight.com;
-        frame-src 'self' https://apps.elfsight.com;
+        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev http://127.0.0.1:5001 https://apps.elfsight.com https://elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://apps.elfsight.com https://elfsight.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self';">
@@ -145,46 +144,7 @@
         .quick-questions button:hover {
             background-color: #d1d5db;
         }
-        .whatsapp-btn {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            border-radius: 9999px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: fixed;
-            bottom: 120px;
-            right: 100px;
-            z-index: 1000;
-        }
-        .whatsapp-btn:hover {
-            background-color: #128c7e;
-        }
-        .elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 180px !important;
-            z-index: 1000 !important;
-        }
     </style>
-    <script>
-        // Wait for Elfsight platform to be ready before opening widget
-        window.ElfsightPlatform = window.ElfsightPlatform || {};
-        window.ElfsightPlatform.openWidget = function(widgetId) {
-            if (window.Elfsight && window.Elfsight.openWidget) {
-                window.Elfsight.openWidget(widgetId);
-            } else {
-                // Retry after delay if Elfsight is not ready
-                setTimeout(() => window.ElfsightPlatform.openWidget(widgetId), 500);
-            }
-        };
-    </script>
 </head>
 <body>
     <header>
@@ -194,17 +154,22 @@
             <a href="videos.html">Videos</a>
             <a href="pictures.html">Gallery</a>
             <a href="documents.html">Documents</a>
-            <a href="posts.html">Posts</a>
             <a href="fabrication.html">Fabrication</a>
-            <a href="chatbot.html">Chatbot</a>            
-            <a href="contact-us.html">Contact Us</a>
+            <a href="chatbot.html">Chatbot</a>
             <a href="booking.html">Booking</a>
         </nav>
     </header>
     <main>
-        <!-- AI Assistant chat container, initially hidden -->
-        <div id="chatContainer" class="chat-container" style="display:none; position: fixed; bottom: 80px; right: 20px; width: 320px; height: 400px; z-index: 1001;">
-            <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center">AI Assistant</h2>
+        <div class="flex justify-center gap-4 mb-6">
+            <button id="aiAssistantBtn" class="bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover">
+                AI Assistant
+            </button>
+            <button id="whatsappBtn" class="bg-green-500 text-white px-6 py-3 rounded-full font-semibold btn-hover">
+                WhatsApp Chat
+            </button>
+        </div>
+        <h2 id="chatHeading" class="text-2xl font-bold mb-4 text-center hidden">AI Assistant</h2>
+        <div id="chatContainer" class="chat-container hidden">
             <div class="messages" id="messages" aria-live="polite" aria-atomic="true"></div>
             <form id="chatForm" class="input-area" aria-label="Chat input form">
                 <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off" required />
@@ -216,17 +181,6 @@
                 <button type="button" data-question="What are your business hours?">What are your business hours?</button>
             </div>
         </div>
-
-        <!-- AI Assistant toggle button -->
-        <div style="position: fixed; top: 86px; left: 50%; transform: translateX(-50%); z-index: 1002; display: flex; gap: 10px;">
-            <button id="aiAssistantBtn" style="background-color: #1e40af; color: white; border: 2px solid #ffffff; border-radius: 9999px; padding: 0.75rem 1.5rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px rgba(30, 64, 175, 0.4); transition: box-shadow 0.3s ease;">
-                AI Assistant
-            </button>
-
-            <button class="whatsapp-btn" id="whatsappBtn" style="position: relative; bottom: auto; right: auto; border: 2px solid #ffffff; font-weight: 700; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.4); transition: box-shadow 0.3s ease;">
-                WhatsApp Chat
-            </button>
-        </div>
     </main>
     <script>
         const messagesDiv = document.getElementById('messages');
@@ -234,8 +188,6 @@
         const chatInput = document.getElementById('chatInput');
         const sendBtn = chatForm.querySelector('.send-btn');
         const quickQuestions = document.querySelectorAll('.quick-questions button');
-        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
-        const chatContainer = document.getElementById('chatContainer');
 
         function addMessage(text, sender) {
             const messageElem = document.createElement('div');
@@ -312,17 +264,6 @@
             }
         });
 
-        // Toggle AI Assistant chat container visibility
-        aiAssistantBtn.addEventListener('click', () => {
-            if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
-                chatContainer.style.display = 'flex';
-                aiAssistantBtn.textContent = 'Close AI Assistant';
-            } else {
-                chatContainer.style.display = 'none';
-                aiAssistantBtn.textContent = 'AI Assistant';
-            }
-        });
-
         quickQuestions.forEach(button => {
             button.addEventListener('click', () => {
                 const question = button.getAttribute('data-question');
@@ -346,42 +287,44 @@
         }
     </script>
     <script>
-        // Add a welcome message on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            if (messagesDiv.children.length === 0) {
-                addMessage("Welcome to GPlus Elevator's AI Assistant! How can I help you today?", 'bot');
-            }
-        });
-    </script>
+        // Toggle chatbot visibility and heading on AI Assistant button click
+        const aiAssistantBtn = document.getElementById('aiAssistantBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatHeading = document.getElementById('chatHeading');
 
-    <script src="https://elfsightcdn.com/platform.js" data-use-service-core async></script>
-    <!-- Elfsight Back to Top | Untitled Back to Top -->
-    <div class="elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d" data-elfsight-app-lazy></div>
-    <!-- Elfsight WhatsApp Chat -->
-    <!-- Remove the Elfsight WhatsApp widget div from initial load -->
-    <!-- The widget will be loaded dynamically on button click -->
-
-    <script>
-        // Dynamically load the WhatsApp widget only when button is clicked
-        document.getElementById('whatsappBtn').addEventListener('click', () => {
-            if (!document.querySelector('.elfsight-app-24420b3f-8654-4722-a54e-7939522123e2')) {
-                const div = document.createElement('div');
-                div.className = 'elfsight-app-24420b3f-8654-4722-a54e-7939522123e2';
-                div.setAttribute('data-elfsight-app-lazy', '');
-                document.body.appendChild(div);
-                // Load the Elfsight platform script if not already loaded
-                if (!window.elfsightScriptLoaded) {
-                    const script = document.createElement('script');
-                    script.src = 'https://elfsightcdn.com/platform.js';
-                    script.setAttribute('data-use-service-core', '');
-                    script.async = true;
-                    document.body.appendChild(script);
-                    window.elfsightScriptLoaded = true;
+        aiAssistantBtn.addEventListener('click', () => {
+            const isVisible = !chatContainer.classList.contains('hidden');
+            if (isVisible) {
+                chatContainer.classList.add('hidden');
+                chatHeading.classList.add('hidden');
+            } else {
+                chatContainer.classList.remove('hidden');
+                chatHeading.classList.remove('hidden');
+                // Add a welcome message if the chat is empty
+                if (messagesDiv.children.length === 0) {
+                    addMessage("Welcome to GPlus Elevator's AI Assistant! How can I help you today?", 'bot');
                 }
             }
-            // Open the WhatsApp widget
-            window.ElfsightPlatform.openWidget('24420b3f-8654-4722-a54e-7939522123e2');
         });
     </script>
+    <script>
+        // Handle the WhatsApp button click
+        document.getElementById('whatsappBtn').addEventListener('click', () => {
+            const elfsightWidget = document.querySelector('.elfsight-app-24420b3f-8654-4722-a54e-7939522123e2');
+            if (elfsightWidget) {
+                // Make sure the widget container is visible before trying to open it
+                elfsightWidget.style.display = 'block';
+            }
+            if (window.ElfsightApps) {
+                window.ElfsightApps.open('24420b3f-8654-4722-a54e-7939522123e2');
+            }
+        });
+
+        // Set current year in footer
+        // Although there is no footer, this is for consistency. If one is added, it will work.
+    </script>
+
+    <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
 </body>
-</html>

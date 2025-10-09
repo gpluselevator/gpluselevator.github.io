@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Price Calculator</title>
   <link rel="stylesheet" href="styles.css" />
+  <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://elfsightcdn.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        img-src 'self' data:;
+        font-src 'self' https://fonts.gstatic.com;
+        connect-src 'self';
+        frame-src 'self' https://docs.google.com https://www.youtube.com;
+        object-src 'none';
+    ">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -335,11 +345,22 @@
       <div class="dropdown-wrapper">
         <label for="additional">Extra Accessories:</label>
         <select id="additional">
-          <option value="none">None</option>
-          <option value="rf_lop">RF (LOP) - ₹10,000</option>
-          <option value="rf_cop">RF (COP) - ₹15,000</option>
-          <option value="finger_lop">Fingerprint (LOP) - ₹15,000</option>
-          <option value="finger_cop">Fingerprint (COP) - ₹20,000</option>
+            <option value="none">None</option>
+            <option value="rf_lop">Password,RF device (Connect to LOP) - ₹ 10,000</option>
+            <option value="rf_cop">Password, RF device attached to COP - ₹ 15,000</option>
+            <option value="finger_lop">Finger print, Password device (Connect to LOP) - ₹ 15,000</option>
+            <option value="finger_cop">Finger print, Password device attached to COP - ₹ 20,000</option>
+        </select>
+      </div>
+
+      <div class="dropdown-wrapper">
+        <label for="touch-screen">Touch Screen Options:</label>
+        <select id="touch-screen">
+            <option value="none">None</option>
+            <option value="touch_screen_lop">Touch Screen LOP - ₹3,000</option>
+            <option value="touch_screen_cop">Touch Screen COP - ₹20,000</option>
+            <option value="touch_screen_with_glass_lop">Touch Screen with Glass LOP- ₹ 5,000</option>
+            <option value="touch_screen_with_glass_cop">Touch Screen with Glass COP- ₹ 30,000</option>
         </select>
       </div>
 
@@ -373,7 +394,7 @@
   <footer>
     <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
     <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
-        Contact us: <a href="tel:+919876543210" style="color: #ccc; text-decoration: none;">+91-9876543210</a>
+        Contact us: <a href="tel:+919363613828" style="color: #ccc; text-decoration: none;">+91 9363613828</a>
     </p>
   </footer>
 
@@ -537,6 +558,7 @@
       const type = document.getElementById('type').value;
       const doorMaterial = document.getElementById('doorMaterial').value;
       const location = document.getElementById('location').value;
+      const touchScreen = document.getElementById('touch-screen').value;
       const additional = document.getElementById('additional').value;
       const door = doorSelect.value;
       const amc = amcSelect.value.trim().toLowerCase();
@@ -605,14 +627,23 @@
       const outdoorCost = location === "Outdoor" ? 40000 : 0;
 
       // Extra Accessories cost
-      const accessoryCostMap = {
+      const accessoryCostMap = { // Renamed from accessoryCostMap
         none: 0,
         rf_lop: 10000,
         rf_cop: 15000,
         finger_lop: 15000,
         finger_cop: 20000,
       };
-      const additionalCost = accessoryCostMap[additional] || 0;
+      const touchScreenCostMap = {
+        none: 0,
+        touch_screen_lop: 3000,
+        touch_screen_cop: 20000,
+        touch_screen_with_glass_lop: 5000,
+        touch_screen_with_glass_cop: 30000,
+      };
+      const accessoryCost = (accessoryCostMap[additional] || 0) * (additional.includes("_lop") ? (floorInput === "G+1" ? 2 : floorInput === "G+2" ? 3 : floorInput === "G+3" ? 4 : 1) : 1);
+      const touchScreenCost = (touchScreenCostMap[touchScreen] || 0) * (touchScreen.includes("_lop") ? (floorInput === "G+1" ? 2 : floorInput === "G+2" ? 3 : floorInput === "G+3" ? 4 : 1) : 1);
+      const totalAdditionalCost = swingDoorCost + outdoorCost + accessoryCost + touchScreenCost;
 
       // Discount based on model and floor
       const discounts = {
@@ -624,21 +655,19 @@
       // AMC Cost (not included in total price)
       const amcCost = amc === "yes" ? (amcPrices?.[amcType]?.[type]?.[floorInput]?.[model] || 0) : 0;
 
-      // Total additional costs
-      const totalAdditional = swingDoorCost + outdoorCost + additionalCost;
-
       // Final price calculation (excluding AMC)
-      const totalPrice = basePrice + totalAdditional - discount;
+      const totalPrice = basePrice + totalAdditionalCost - discount;
 
       // Display results
       resultDiv.style.display = 'block';
       resultDiv.innerHTML = `
-        ✅ <strong>Base Price</strong>: ₹${basePrice.toLocaleString("en-IN")}<br>
-        ✅ <strong>Swing Door Cost</strong>: ₹${swingDoorCost.toLocaleString("en-IN")}<br>
-        ✅ <strong>Indoor or Outdoor Cost</strong>: ₹${outdoorCost.toLocaleString("en-IN")}<br>
-        ✅ <strong>Extra Accessories Cost</strong>: ₹${additionalCost.toLocaleString("en-IN")}<br>
-        ➖ <i style="color: red;">Discount for Selected Model</i>: ₹${discount.toLocaleString("en-IN")}<br>
-        ➕ <strong>Total Additional Cost</strong>: ₹${totalAdditional.toLocaleString("en-IN")}<br>
+        [OK] <strong>Base Price</strong>: Rs.${basePrice.toLocaleString("en-IN")}<br>
+        [OK] <strong>Swing Door Cost</strong>: Rs.${swingDoorCost.toLocaleString("en-IN")}<br>
+        [OK] <strong>Indoor or Outdoor Cost</strong>: Rs.${outdoorCost.toLocaleString("en-IN")}<br>
+        [OK] <strong>Extra Accessories Cost</strong>: Rs.${accessoryCost.toLocaleString("en-IN")}<br>
+        [OK] <strong>Touch Screen Cost</strong>: Rs.${touchScreenCost.toLocaleString("en-IN")}<br>
+        [-] <i style="color: red;">Discount for Selected Model</i>: Rs.${discount.toLocaleString("en-IN")}<br>
+        [+] <strong>Total Additional Cost</strong>: Rs.${totalAdditionalCost.toLocaleString("en-IN")}<br>
         💰 <strong>Final Price</strong>: ₹${totalPrice.toLocaleString("en-IN")}<br>
         ${amc === "yes" ? `✅ <strong>AMC Cost (${amcType})</strong>: ₹${amcCost.toLocaleString("en-IN")}` : ''}
       `;
@@ -688,5 +717,9 @@
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   </script>
+
+    <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
 </body>
 </html>

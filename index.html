@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="styles.css">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
-        script-src 'self' 'unsafe-inline' https://embed.tawk.to https://static.cloudflareinsights.com https://elfsightcdn.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        img-src 'self' data:;
-        font-src 'self';
-        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev;
-        frame-src 'self' https://widget.taggbox.com https://docs.google.com https://www.youtube.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://embed.tawk.to https://static.cloudflareinsights.com https://elfsightcdn.com https://static.elfsight.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
+        img-src 'self' data: https://static.elfsight.com;
+        font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
+        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev https://apps.elfsight.com https://elfsight.com https://core.service.elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://widget.taggbox.com https://docs.google.com https://www.youtube.com https://apps.elfsight.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self' https://formspree.io;">
@@ -348,6 +348,7 @@
             <li><a href="videos.html">Videos</a></li>
             <li><a href="pictures.html">Gallery</a></li>
             <li><a href="documents.html">Documents</a></li>
+            <li><a href="posts.html">Posts</a></li>
             <li><a href="fabrication.html">Fabrication</a></li>
             <li><a href="chatbot.html">Chatbot</a></li>
             <li><a href="booking.html">Booking</a></li>
@@ -534,9 +535,9 @@
     </div>
   </main>
     <footer>
-        <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year"></span> GPlus Elevator. All Rights Reserved.</p>
         <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
-            Contact us: <a href="tel:+919363613828" style="color: #ccc; text-decoration: none;">+91-9363613828</a>
+            Contact us: <a href="tel:+919363613828" style="color: #ccc; text-decoration: none;">+91 9363613828</a>
         </p>
     </footer>
 
@@ -876,10 +877,20 @@
     }
     // Run the function on page load
     window.addEventListener('DOMContentLoaded', handleUrlParameters);
+
+    // Set current year in footer
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
   </script>
 
-    <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
-    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <!-- Elfsight Widgets -->
+    <!-- Elfsight AI Chatbot -->
+    <div class="elfsight-app-581d3a0f-6459-436d-8709-7e4b1385b27a" data-elfsight-app-lazy></div>
+    <!-- Elfsight WhatsApp Chat -->
     <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
+    <!-- Elfsight Visitor Counter -->
+    <div class="elfsight-app-ba76bb51-8014-47b0-b6bc-7cca840cfddc" data-elfsight-app-lazy></div>
+    <!-- Elfsight Back to Top | Untitled Back to Top -->
+    <div class="elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d" data-elfsight-app-lazy></div>
+    <script src="https://elfsightcdn.com/platform.js" data-use-service-core defer></script>
 </body>
 </html>

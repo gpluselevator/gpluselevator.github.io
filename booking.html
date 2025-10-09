@@ -7,12 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
-        script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://embed.tawk.to https://static.cloudflareinsights.com https://elfsightcdn.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        img-src 'self' data:;
-        font-src 'self' https://fonts.gstatic.com;
-        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev https://cloudflareinsights.com;
-        frame-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://embed.tawk.to https://static.cloudflareinsights.com https://elfsightcdn.com https://static.elfsight.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
+        img-src 'self' data: https://static.elfsight.com;
+        font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
+        connect-src 'self' https://gplus-elevator-website1.krish-arulmeiyappan.workers.dev https://cloudflareinsights.com https://apps.elfsight.com https://elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://apps.elfsight.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self';">
@@ -81,10 +81,12 @@
                     <ul class="flex space-x-6 text-white">
                         <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
                         <li><a href="videos.html" class="hover:text-gray-300">Videos</a></li>
-                        <li><a href="pictures.html" class="hover:text-gray-300">Gallery</a></li>
-                        <li><a href="documents.html" class="hover:text-gray-300">Documents</a></li>
+                        <li><a href="gallery.html" class="hover:text-gray-300">Gallery</a></li>
+                       e <li><a href="documents.html" class="hover:text-gray-300">Documents</a></li>
+                        <li><a href="posts.html" class="hover:text-gray-300">Posts</a></li>
                         <li><a href="fabrication.html" class="hover:text-gray-300">Fabrication</a></li>
                         <li><a href="chatbot.html" class="hover:text-gray-300">Chatbot</a></li>
+                        <li><a href="contact-us.html" class="hover:text-gray-300">Contact Us</a></li>
                         <li><a href="booking.html" class="hover:text-gray-300">Booking</a></li>
                     </ul>
                 </nav>
@@ -293,7 +295,9 @@
     </div>
 
     <!-- Footer (your existing footer code can be reused) -->
-
+    <footer>
+        <p>&copy; <span id="copyright-year"></span> GPlus Elevator. All Rights Reserved.</p>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dateInput = document.querySelector('input[name="date"]');
@@ -334,12 +338,16 @@
         });
     }
 
+    // Set current year in footer
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
             // ... keep rest of animation/validation code as desired ...
         });
     </script>
 
-    <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
-    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <!-- Elfsight Widgets -->
     <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
+    <div class="elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d" data-elfsight-app-lazy></div>
+    <script src="https://elfsightcdn.com/platform.js" data-use-service-core defer></script>
 </body>
 </html>

@@ -1,0 +1,3 @@
+- [x] Edit chatbot.html to change the top position of the button container from 20px to 23px
+- [x] Make the AI Assistant and WhatsApp Chat buttons more clear in chatbot.html
+- [x] Remove WhatsApp logo from the button and make the buttons more down

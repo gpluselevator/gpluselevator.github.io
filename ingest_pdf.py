@@ -14,12 +14,13 @@ def ingest_pdf():
     """
     Reads a PDF, splits it into chunks, generates embeddings, and stores them in ChromaDB.
     """
-    # Check if the PDF file exists
-    if not os.path.exists(PDF_FILE_PATH):
-        print(f"❌ Error: PDF file not found at '{PDF_FILE_PATH}'.")
-        print("Please create a 'data' folder in this directory and place your PDF inside it.")
+# Check if the PDF file exists
+    try:
+        if not os.path.exists(PDF_FILE_PATH):
+            raise FileNotFoundError(f"PDF file not found at '{PDF_FILE_PATH}'.\nPlease create a 'data' folder in this directory and place your PDF inside it.")
+    except Exception as e:
+        print(f"❌ Error: {str(e)}")
         return
-
     # --- 1. Load and Chunk the PDF ---
     print(f"📚 Reading PDF: {PDF_FILE_PATH}")
     reader = PdfReader(PDF_FILE_PATH)

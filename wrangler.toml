@@ -1,0 +1,13 @@
+# This is the configuration file for your Cloudflare Worker.
+# It helps Wrangler understand how to build and deploy your project.
+name = "gplus-elevator-website1"
+main = "index.js"
+compatibility_date = "2024-05-01"
+# The [vars] section is used to define environment variables for local development
+# when you run the `wrangler dev` command.
+# For this to work, create a `.env` file in this same directory and add your keys.
+[vars]
+# Environment variables for local development
+# Environment variables for local development
+# Create a .env file with: YOUTUBE_API_KEY="your-api-key"
+YOUTUBE_API_KEY = ""

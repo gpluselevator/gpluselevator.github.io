@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fabrication</title>
     <link rel="stylesheet" href="styles.css" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://elfsightcdn.com https://static.elfsight.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://static.elfsight.com;
+        img-src 'self' data: https://static.elfsight.com;
+        font-src 'self' https://fonts.gstatic.com https://static.elfsight.com;
+        connect-src 'self' https://apps.elfsight.com https://elfsight.com wss://socket.elfsight.com;
+        frame-src 'self' https://apps.elfsight.com;
+    ">
     <style>
       main section {
         margin-bottom: 3rem;
@@ -157,8 +166,10 @@
             <li><a href="videos.html">Videos</a></li>
             <li><a href="pictures.html">Gallery</a></li>
             <li><a href="documents.html">Documents</a></li>
+            <li><a href="posts.html">Posts</a></li>
             <li><a href="fabrication.html">Fabrication</a></li>
             <li><a href="chatbot.html">Chatbot</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
             <li><a href="booking.html">Booking</a></li>
             <!-- <li><a href="calculator.html">Price Calculator</a></li> -->
         </ul>
@@ -181,11 +192,16 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 GPlus Elevator. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year"></span> GPlus Elevator. All Rights Reserved.</p>
         <p style="margin-top: 0.25rem; font-size: 0.9rem; color: #ccc;">
-            Contact us: <a href="tel:+919876543210" style="color: #ccc; text-decoration: none;">+91-9876543210</a>
+            Contact us: <a href="tel:+919363613828" style="color: #ccc; text-decoration: none;">+91 9363613828</a>
         </p>
     </footer>
+
+    <!-- Elfsight Widgets -->
+    <div class="elfsight-app-24420b3f-8654-4722-a54e-7939522123e2" data-elfsight-app-lazy></div>
+    <div class="elfsight-app-5b01b9ba-c037-4e27-b055-748d09afae5d" data-elfsight-app-lazy></div>
+    <script src="https://elfsightcdn.com/platform.js" data-use-service-core defer></script>
 
     <script>
       // Array of fabrication PDFs with title, description, and src
@@ -258,7 +274,7 @@
       function attachListeners() {
         document.querySelectorAll('.view-pdf-btn').forEach(button => {
           button.addEventListener('click', () => {
-            const pdfSrc = button.getAttribute('data-pdf-src');
+            const pdfSrc = buttont.getAttribute('data-pdf-src');
             const title = button.getAttribute('data-pdf-title');
             openModal(pdfSrc, title);
           });
@@ -283,6 +299,9 @@
           closeModal();
         }
       });
+
+      // Set current year in footer
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
